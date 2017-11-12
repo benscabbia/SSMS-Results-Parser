@@ -33,4 +33,25 @@ export class ManagerComponent implements OnInit {
     
   }
 
+  populateFrom(){
+    // Populate from 
+    //this.dataService.dummyData
+    this.fromInput.populateDummyData();
+    console.log("pop from");
+  }
+
+  populateFromTo(){
+    // Populate fromTo 
+    this.fromInput.populateDummyData();
+    this.toInput.populateDummyData();
+  }
+
+  clearDataFrom(){
+    this.fromInput.clearData();
+  }
+  
+  clearDataTo(){
+    this.toInput.clearData();
+  }
+
 }
