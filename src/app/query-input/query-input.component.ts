@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { DataService } from "../services/data.service";
 
 @Component({
   selector: 'app-query-input',
@@ -7,10 +8,21 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class QueryInputComponent implements OnInit {
-
-  constructor() { }
+  @Input() identifier: string; 
+  textInput: string = "";
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
   }
+
+  submitData(){
+    if(this.textInput.length > 0){
+      this.dataService.ssmsInput[this.identifier] = this.textInput;
+    }
+
+    //console.log("pushing " + this.identifier + " id and text: " + this.textInput);
+  }
+
+
 
 }

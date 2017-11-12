@@ -5,20 +5,23 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
-import { AppConfigService } from "./services/appConfig.service";
 import { QueryInputComponent } from './query-input/query-input.component';
+import { ManagerComponent } from './manager/manager.component';
+import { AppConfigService } from "./services/appConfig.service";
+import { DataService } from "./services/data.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    QueryInputComponent
+    QueryInputComponent,
+    ManagerComponent
   ],
   imports: [
     BrowserModule,
     FormsModule
   ],
-  providers: [AppConfigService],
+  providers: [AppConfigService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

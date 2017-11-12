@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <h2>From (Original Results)</h2>
+        <app-query-input identifier="fromInput" #fromInput></app-query-input>
+      </div>
+      <div class="col-md-1 text-center buttonCentre">
+          <button class="btn btn-default btn-lg"><></button>
+      </div>
+      <div class="col-md-5">
+          <h2>To (New Results)</h2>
+        <app-query-input identifier="toInput" #toInput></app-query-input>        
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <button class="btn btn-success btn-lg" (click)="runParser()">Run</button>
+        <button class="btn btn-warning btn-lg">Clear</button>      
+      </div>
+      <div class="col-md-offset-1 col-md-5">
+          <button class="btn btn-warning btn-lg">Clear</button>          
+        </div>
+    </div>
+  </div>
