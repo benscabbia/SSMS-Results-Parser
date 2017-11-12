@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
-import { DataService } from "../services/data.service";
+import { DataService } from "../../services/data.service";
 
 @Component({
   selector: 'app-query-input',
   templateUrl: './query-input.component.html',
-  styleUrls: ['./query-input.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./query-input.component.css']
 })
 export class QueryInputComponent implements OnInit {
   @Input() identifier: string; 
