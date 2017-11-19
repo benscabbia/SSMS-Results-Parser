@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { DataService } from "../services/data.service";
 import { InputSelector } from "../model/inputSelector.enum";
+import { SSMSParser } from "../model/ssmsParser";
 
 @Component({
   selector: 'app-manager',
@@ -26,10 +27,13 @@ export class ManagerComponent implements OnInit {
     // save data to service from textareas
     this.fromInput.submitData();  
     this.toInput.submitData();    
-    
 
-    console.log(this.dataService.ssmsInput[InputSelector.From]);
-    console.log(this.dataService.ssmsInput[InputSelector.To]);
+    // console.log(this.dataService.ssmsInput[InputSelector.From]);
+    // console.log(this.dataService.ssmsInput[InputSelector.To]);
+    SSMSParser.ProcessInput(
+      this.dataService.ssmsInput[InputSelector.From],
+      this.dataService.ssmsInput[InputSelector.To]
+    );
     
   }
 
@@ -53,5 +57,4 @@ export class ManagerComponent implements OnInit {
   clearDataTo(){
     this.toInput.clearData();
   }
-
 }
