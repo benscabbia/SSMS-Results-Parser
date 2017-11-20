@@ -1,5 +1,7 @@
 import { InputSelector } from "./inputSelector.enum";
 import { InputData } from "./inputData";
+import { InputTypeResults } from "./inputTypeResults";
+import { InputType } from "./inputType.enum";
 
 export class SSMSParser {
     static inputToProcess: InputData[];
@@ -14,8 +16,8 @@ export class SSMSParser {
 
     private static Parse(): any {
         
-        for(let i =0; i<this.inputToProcess.length; i++){
-            if(!this.inputToProcess[i].hasSplitInput) return;
+        for(let i = 0; i<this.inputToProcess.length; i++){
+            if(!this.inputToProcess[i].hasSplitInput) continue;
 
             this.ParseSSMS(this.inputToProcess[i].splitInput);
 
@@ -25,16 +27,25 @@ export class SSMSParser {
 
     private static ParseSSMS(splitInput: string[]){
         for(let i=0; i<splitInput.length; i++){
-            //let currentString = GetInputType(splitInput[i]);
+
+            let result: InputTypeResults = this.GetInputType(splitInput[i]);
 
             
 
         }
     }
 
-    private static GetInputType(input: string){
+    private static GetInputType(input: string): InputTypeResults{
 
-
+        if(input.contains("SQL Server parse and compile time") ||
+           input.contains("SQL Server Execution Times"))    
+        {
+            return new InputTypeResults(InputType.StatisticsTimeText, input);
+        }
+        if(input.contains("CPU time") && input.contains("elapsed time")){
+            return new InputTypeResults(InputType.StatisticsTimeData, input);            
+        }
+     
     }
     
 

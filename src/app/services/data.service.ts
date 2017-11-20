@@ -44,5 +44,5 @@ export class DataService {
     
      SQL Server Execution Times:
        CPU time = 0 ms,  elapsed time = 0 ms.
-    
+    `
 }

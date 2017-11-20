@@ -1,5 +1,6 @@
 export enum InputType {
     StatisticsIO,
-    StatisticsTime,
+    StatisticsTimeText,
+    StatisticsTimeData,
     TableData
 }    
