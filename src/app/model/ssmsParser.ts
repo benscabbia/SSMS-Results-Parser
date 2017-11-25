@@ -40,6 +40,7 @@ export class SSMSParser {
         for(let i=0; i<splitInput.length; i++){
 
             let result: IData = this.GetInputType(splitInput[i]);
+            
             executionStack.add(result);
             executionStack2.push(result);
             
@@ -48,7 +49,7 @@ export class SSMSParser {
                 case InputType.StatisticsTimeText:
                     break;
                 case InputType.StatisticsIOData:
-
+                        
                     break;
                 case InputType.TableData:
                     break;

@@ -1,3 +1,5 @@
+import {AppConfigService} from '../services/appConfig.service';
+import {DataService} from '../services/data.service';
 import { InputType } from "./inputType.enum";
 import { IData } from "./IData.interface";
 
@@ -11,17 +13,13 @@ export abstract class ParsedData implements IData {
         this.parseInput();
     }
 
-    get InputType(): InputType {
+    public get InputType(): InputType {
         return this._inputType;
     }
 
-    get Data(): string {
+    public get Data(): string {
         return this._data;
     }
 
     protected abstract parseInput(): void;
-
-    // getInputType: () => InputType;
-    // getData: () => string;
-
 }
