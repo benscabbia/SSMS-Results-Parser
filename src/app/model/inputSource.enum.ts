@@ -1,4 +1,4 @@
-export enum InputSelector {
+export enum InputSource {
     From = "fromInput",
     To = "toInput"
 }

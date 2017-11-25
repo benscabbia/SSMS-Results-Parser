@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { DataService } from "../services/data.service";
-import { InputSelector } from "../model/inputSelector.enum";
+import { InputSource } from "../model/inputSource.enum";
 import { SSMSParser } from "../model/ssmsParser";
 
 @Component({
@@ -9,11 +9,11 @@ import { SSMSParser } from "../model/ssmsParser";
   styleUrls: ['./manager.component.css']
 })
 export class ManagerComponent implements OnInit {
-  @ViewChild(InputSelector.From) fromInput: any;
-  @ViewChild(InputSelector.To) toInput: any;
+  @ViewChild(InputSource.From) fromInput: any;
+  @ViewChild(InputSource.To) toInput: any;
   
-  toChildFromInput = InputSelector.From;
-  toChildToInput = InputSelector.To;
+  toChildFromInput = InputSource.From;
+  toChildToInput = InputSource.To;
   
   constructor(private dataService: DataService) { }
 
@@ -31,8 +31,8 @@ export class ManagerComponent implements OnInit {
     // console.log(this.dataService.ssmsInput[InputSelector.From]);
     // console.log(this.dataService.ssmsInput[InputSelector.To]);
     SSMSParser.ProcessInput(
-      this.dataService.ssmsInput[InputSelector.From],
-      this.dataService.ssmsInput[InputSelector.To]
+      this.dataService.ssmsInput[InputSource.From],
+      this.dataService.ssmsInput[InputSource.To]
     );
     
   }

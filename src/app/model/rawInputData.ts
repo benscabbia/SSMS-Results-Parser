@@ -1,4 +1,4 @@
-export class InputData{
+export class RawInputData{
 
     private _hasSplitInput: boolean = false;
     private _input: string; 
