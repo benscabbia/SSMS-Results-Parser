@@ -17,11 +17,11 @@ export class ParsedStatisticsIOData extends ParsedData {
 
     protected parseInput(): void {
         this._scanCount = Number.parseInt(RegexExpressions.ScanCountRegex.exec(this.Data)[0]);
-        this._logicalReads = Number.parseInt(RegexExpressions.LobLogicalReads.exec(this.Data)[0]);
-        this._physicalReads = Number.parseInt(RegexExpressions.PhysicalReads.exec(this.Data)[0]);
-        this._readAheadReads = Number.parseInt(RegexExpressions.ReadAheadReads.exec(this.Data)[0]);
-        this._lobLogicalReads = Number.parseInt(RegexExpressions.LobLogicalReads.exec(this.Data)[0]);
-        this._lobReadAheadReads = Number.parseInt(RegexExpressions.LobReadAhead.exec(this.Data)[0]);
+        this._logicalReads = Number.parseInt(RegexExpressions.LobLogicalReadsRegex.exec(this.Data)[0]);
+        this._physicalReads = Number.parseInt(RegexExpressions.PhysicalReadsRegex.exec(this.Data)[0]);
+        this._readAheadReads = Number.parseInt(RegexExpressions.ReadAheadReadsRegex.exec(this.Data)[0]);
+        this._lobLogicalReads = Number.parseInt(RegexExpressions.LobLogicalReadsRegex.exec(this.Data)[0]);
+        this._lobReadAheadReads = Number.parseInt(RegexExpressions.LobReadAheadRegex.exec(this.Data)[0]);
 
     }
 	public get scanCount(): number  {

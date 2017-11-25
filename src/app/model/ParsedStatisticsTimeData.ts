@@ -1,12 +1,23 @@
 import { ParsedData } from "./ParsedData.abstract";
+import { RegexExpressions } from "./RegexExpressions";
 
 export class ParsedStatisticsTimeData extends ParsedData {
+    
+    private _CPUTime: number = 0;
+    private _elapsedTime: number = 0;
     protected parseInput(): void {
-        throw new Error("Method not implemented.");
+        this._CPUTime = Number.parseInt(RegexExpressions.CPUTimeRegex.exec(this.Data)[0]);        
+        this._elapsedTime = Number.parseInt(RegexExpressions.ElapsedTimeRegex.exec(this.Data)[0]);        
     }
    
 
-    // getInputType: () => InputType;
-    // getData: () => string;
+	public get CPUTime(): number  {
+		return this._CPUTime;
+	}
+
+	public get elapsedTime(): number  {
+		return this._elapsedTime;
+	}
+    
 
 }
