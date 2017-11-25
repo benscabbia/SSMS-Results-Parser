@@ -6,8 +6,8 @@ export class ParsedStatisticsTimeData extends ParsedData {
     private _CPUTime: number = 0;
     private _elapsedTime: number = 0;
     protected parseInput(): void {
-        this._CPUTime = Number.parseInt(RegexExpressions.CPUTimeRegex.exec(this.Data)[0]);        
-        this._elapsedTime = Number.parseInt(RegexExpressions.ElapsedTimeRegex.exec(this.Data)[0]);        
+        this._CPUTime = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.CPUTimeRegex));        
+        this._elapsedTime = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.ElapsedTimeRegex));        
     }
    
 

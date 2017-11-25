@@ -16,13 +16,13 @@ export class ParsedStatisticsIOData extends ParsedData {
     private _lobReadAheadReads: number = 0;
 
     protected parseInput(): void {
-        this._scanCount = Number.parseInt(RegexExpressions.ScanCountRegex.exec(this.Data)[0]);
-        this._logicalReads = Number.parseInt(RegexExpressions.LobLogicalReadsRegex.exec(this.Data)[0]);
-        this._physicalReads = Number.parseInt(RegexExpressions.PhysicalReadsRegex.exec(this.Data)[0]);
-        this._readAheadReads = Number.parseInt(RegexExpressions.ReadAheadReadsRegex.exec(this.Data)[0]);
-        this._lobLogicalReads = Number.parseInt(RegexExpressions.LobLogicalReadsRegex.exec(this.Data)[0]);
-        this._lobReadAheadReads = Number.parseInt(RegexExpressions.LobReadAheadRegex.exec(this.Data)[0]);
 
+        this._scanCount = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.ScanCountRegex));
+        this._logicalReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.LogicalReadsRegex));
+        this._physicalReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.PhysicalReadsRegex));
+        this._readAheadReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.ReadAheadReadsRegex));
+        this._lobLogicalReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.LobLogicalReadsRegex));
+        this._lobReadAheadReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.LobReadAheadRegex));
     }
 	public get scanCount(): number  {
 		return this._scanCount;

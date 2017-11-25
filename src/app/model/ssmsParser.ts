@@ -41,21 +41,21 @@ export class SSMSParser {
 
             let result: IData = this.GetInputType(splitInput[i]);
             
-            executionStack.add(result);
-            executionStack2.push(result);
+            // executionStack.add(result);
+            // executionStack2.push(result);
             
 
-            switch(result.InputType){
-                case InputType.StatisticsTimeText:
-                    break;
-                case InputType.StatisticsIOData:
+            // switch(result.InputType){
+            //     case InputType.StatisticsTimeText:
+            //         break;
+            //     case InputType.StatisticsIOData:
                         
-                    break;
-                case InputType.TableData:
-                    break;
-                case InputType.TableRowsAffectedData:
-                    break;
-            }
+            //         break;
+            //     case InputType.TableData:
+            //         break;
+            //     case InputType.TableRowsAffectedData:
+            //         break;
+            // }
         }
     }
 
@@ -76,10 +76,8 @@ export class SSMSParser {
         if(input.contains("row(s) affected")){
             return new ParsedTableRowsAffectedData(InputType.TableRowsAffectedData, input);
         }
-        
-
-        return new ParsedTableData(InputType.TableRowsAffectedData, input);
-
+        return null;
+        //return new ParsedTableData(InputType.TableRowsAffectedData, input);
      
     }
     

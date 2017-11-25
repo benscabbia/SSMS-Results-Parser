@@ -21,5 +21,19 @@ export abstract class ParsedData implements IData {
         return this._data;
     }
 
+
+    public TryGetValues(data: string, regex: RegExp, indexer: number = 1, defaultValue: any = 0): any {
+        
+        if(regex.test(data)){
+            let result = regex.exec(data);
+            if(result && result[indexer]){
+                return result[indexer];
+            }else{
+                return defaultValue;
+            }
+        }
+
+    }
+
     protected abstract parseInput(): void;
 }

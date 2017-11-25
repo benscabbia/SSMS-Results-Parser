@@ -4,7 +4,7 @@ import { RegexExpressions } from "./RegexExpressions";
 export class ParsedTableRowsAffectedData extends ParsedData {
     private _rowsAffected: number = 0;
     protected parseInput(): void {
-        this._rowsAffected = Number.parseInt(RegexExpressions.RowsAffectedRegex.exec(this.Data)[0]);        
+        this._rowsAffected = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.RowsAffectedRegex));
     }
 
     public get rowsAffected(): number {
