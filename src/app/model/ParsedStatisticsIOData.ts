@@ -8,12 +8,12 @@ export class ParsedStatisticsIOData extends ParsedData {
      Table 'Schools'. Scan count 1, logical reads 2, physical reads 0, read-ahead reads 0, 
      lob logical reads 0, lob physical reads 0, lob read-ahead reads 0.
     */
-    private _scanCount: number = 0;
-    private _logicalReads: number = 0;
-    private _physicalReads: number = 0;
-    private _readAheadReads: number = 0;
-    private _lobLogicalReads: number = 0;
-    private _lobReadAheadReads: number = 0;
+    private _scanCount: number;
+    private _logicalReads: number;
+    private _physicalReads: number;
+    private _readAheadReads: number;
+    private _lobLogicalReads: number;
+    private _lobReadAheadReads: number;
 
     protected parseInput(): void {
 
