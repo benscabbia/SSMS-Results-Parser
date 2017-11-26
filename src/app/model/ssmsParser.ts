@@ -8,6 +8,8 @@ import { ParsedTableData } from "./ParsedTableData";
 import { ParsedStatisticsIOData } from "./ParsedStatisticsIOData";
 import { ParsedStatisticsTimeText } from "./ParsedStatisticsTimeText";
 import { IData } from "./IData.interface";
+import { TableQueryResult } from "./TableQueryResult";
+
 
 export class SSMSParser {
     static inputToProcess: RawInputData[];
@@ -32,31 +34,60 @@ export class SSMSParser {
     }
 
     private static ParseSSMS(splitInput: string[]){
-        let executionStack = new Collections.Stack<IData>();
-        let executionStack2 = [];
+        let executionStack = new Collections.Stack<TableQueryResult>();
+        let executionStack2: TableQueryResult[] = [];
         
-        
-        
+        let tableQueryResults = new TableQueryResult();
+
+        // contains table header
+        let isFirstTableRowHeader = true;
         for(let i=0; i<splitInput.length; i++){
 
             let result: IData = this.GetInputType(splitInput[i]);
             
             // executionStack.add(result);
             // executionStack2.push(result);
-            
+            switch(result.InputType){
 
-            // switch(result.InputType){
-            //     case InputType.StatisticsTimeText:
-            //         break;
-            //     case InputType.StatisticsIOData:
-                        
-            //         break;
-            //     case InputType.TableData:
-            //         break;
-            //     case InputType.TableRowsAffectedData:
-            //         break;
-            // }
+                case InputType.TableData:
+                    if(isFirstTableRowHeader){
+                        isFirstTableRowHeader = false;
+                        tableQueryResults.parsedTableHeader = <ParsedTableData>result;
+                    }else{
+                        tableQueryResults.addParsedTableData(<ParsedTableData>result);
+                    }
+                    break;
+
+                case InputType.TableRowsAffectedData:
+                    tableQueryResults.parsedTableRowsAffectedData = <ParsedTableRowsAffectedData>result;
+                    break;
+                
+                case InputType.StatisticsIOData:
+                    tableQueryResults.parsedStatisticsIOData = <ParsedStatisticsIOData>result;        
+                    tableQueryResults.parsedTableName = (<ParsedStatisticsIOData>result).tableName;
+                    break;
+                
+                case InputType.StatisticsTimeData:
+                    tableQueryResults.parsedStatisticsTimeData = <ParsedStatisticsTimeData>result;
+                    
+                    // Expecting this to be the last instruction so I reinitialise vars
+                    executionStack.push(tableQueryResults);
+                    executionStack2.push(tableQueryResults);
+                    isFirstTableRowHeader = true;
+                    tableQueryResults = new TableQueryResult();
+                    break;
+                
+                case InputType.StatisticsTimeText:
+                case InputType.Unknown:
+                    break;
+                    
+                default:
+                    throw "Result type is unhandled";
+            }
         }
+
+        //end of calculation
+        let a = "";
     }
 
     private static GetInputType(input: string): IData{
@@ -76,9 +107,8 @@ export class SSMSParser {
         if(input.contains("row(s) affected")){
             return new ParsedTableRowsAffectedData(InputType.TableRowsAffectedData, input);
         }
-        return null;
-        //return new ParsedTableData(InputType.TableRowsAffectedData, input);
-     
+
+        return new ParsedTableData(InputType.TableData, input);
     }
     
 

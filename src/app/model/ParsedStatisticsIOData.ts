@@ -14,6 +14,7 @@ export class ParsedStatisticsIOData extends ParsedData {
     private _readAheadReads: number;
     private _lobLogicalReads: number;
     private _lobReadAheadReads: number;
+    private _tableName: string;
 
     protected parseInput(): void {
 
@@ -23,6 +24,7 @@ export class ParsedStatisticsIOData extends ParsedData {
         this._readAheadReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.ReadAheadReadsRegex));
         this._lobLogicalReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.LobLogicalReadsRegex));
         this._lobReadAheadReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.LobReadAheadRegex));
+        this._tableName = this.TryGetValues(this.Data, RegexExpressions.TableNameRegex, null);        
     }
 	public get scanCount(): number  {
 		return this._scanCount;
@@ -46,6 +48,10 @@ export class ParsedStatisticsIOData extends ParsedData {
 
 	public get lobReadAheadReads(): number  {
 		return this._lobReadAheadReads;
+	}
+
+	public get tableName(): string {
+		return this._tableName;
 	}
     
 
