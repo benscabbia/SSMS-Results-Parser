@@ -7,7 +7,8 @@ export class ParsedTableData extends ParsedData {
     private _tableData: string;
 
     protected parseInput(): void {
-        this._tableData = this.TryGetValues(this.Data, RegexExpressions.TableDataRegex);    
+        //this._tableData = this.TryGetValues(this.Data, RegexExpressions.TableDataRegex, 0, null);    
+        this._tableData = this.Data; // will need processing later
     }
 
     public get tableData(): string {

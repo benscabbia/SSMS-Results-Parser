@@ -1,7 +1,7 @@
 export class RegexExpressions {
     
     // Regular Expressions
-    public static readonly TableNameRegex: RegExp = new RegExp(/\Table \'(\w+)\'/, "i");    
+    public static readonly TableNameRegex: RegExp = new RegExp(/\Table \'(#?\w+)\'/, "i");    
     public static readonly ScanCountRegex: RegExp = new RegExp(/\Scan count (\d+)/, "i");
     public static readonly LogicalReadsRegex: RegExp = new RegExp(/\,\s*logical reads (\d+)/, "i");
     public static readonly PhysicalReadsRegex: RegExp = new RegExp(/\,\s*physical reads (\d+)/, "i");
@@ -15,6 +15,6 @@ export class RegexExpressions {
     
     public static readonly RowsAffectedRegex: RegExp = new RegExp(/(\d+) row/, "i");
     
-    public static readonly TableDataRegex: RegExp = new RegExp(/\w+/, "i");
+    public static readonly TableDataRegex: RegExp = new RegExp(/([^,]+)/, "g");
     
 }
