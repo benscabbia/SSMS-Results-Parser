@@ -11,7 +11,7 @@ export class RegexExpressions {
     public static readonly LobReadAheadRegex: RegExp = new RegExp(/\lob read-ahead reads (\d+)/, "i");
     
     public static readonly CPUTimeRegex: RegExp = new RegExp(/\CPU time = (\d+)/, "i");
-    public static readonly ElapsedTimeRegex: RegExp = new RegExp(/\elapsed time (\d+)/, "i");
+    public static readonly ElapsedTimeRegex: RegExp = new RegExp(/\elapsed time = (\d+)/, "i");
     
     public static readonly RowsAffectedRegex: RegExp = new RegExp(/(\d+) row/, "i");
     

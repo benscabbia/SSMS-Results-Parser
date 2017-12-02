@@ -89,6 +89,7 @@ export class SSMSParser {
                         tableQueryResults.addParsedTableRowsAffectedData(<ParsedTableRowsAffectedData>resultNext);
                         i++; // increment i beyond next
                         executionStack.push(tableQueryResults);
+                        executionStack2.push(tableQueryResults);
                         tableQueryResults = new TableQueryResult();
                     }
  
@@ -100,6 +101,7 @@ export class SSMSParser {
                     */
                     else if( resultNext.InputType == InputType.TableData ){
                         executionStack.push(tableQueryResults);
+                        executionStack2.push(tableQueryResults);
                         tableQueryResults = new TableQueryResult();
                     }
 
@@ -173,7 +175,7 @@ export class SSMSParser {
 
         //end of calculation
         let a = "";
-        return executionStack;
+        return executionStack2;
     }
 
     private static GetInputType(input: string): IData{
