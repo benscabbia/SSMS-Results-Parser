@@ -12,9 +12,9 @@ import {ParsedStatisticsIOData} from './ParsedStatisticsIOData';
     6. Exec Times data
 */
 export class TableQueryResult {
-    private _parsedStatisticsIOData: ParsedStatisticsIOData;
-    private _parsedStatisticsTimeData: ParsedStatisticsTimeData;
-	private _parsedTableRowsAffectedData: ParsedTableRowsAffectedData;
+    private _parsedStatisticsIOData: ParsedStatisticsIOData[];
+    private _parsedStatisticsTimeData: ParsedStatisticsTimeData[];
+	private _parsedTableRowsAffectedData: ParsedTableRowsAffectedData[];
 	
 	private _parsedTableName: string;
     private _parsedTableHeader: ParsedTableData;	
@@ -22,33 +22,45 @@ export class TableQueryResult {
 
 	constructor() {
 		this._parsedTableData = [];		
+		this._parsedStatisticsIOData = [];
+		this._parsedStatisticsTimeData = [];
+		this._parsedTableRowsAffectedData = [];
 	}
 
-	public get parsedStatisticsIOData(): ParsedStatisticsIOData {
+	public get parsedStatisticsIOData(): ParsedStatisticsIOData[] {
 		return this._parsedStatisticsIOData;
 	}
 
-	public set parsedStatisticsIOData(value: ParsedStatisticsIOData) {
-        if(this._parsedStatisticsIOData) throw "IO Data already set";
-		this._parsedStatisticsIOData = value;
+	// public set parsedStatisticsIOData(value: ParsedStatisticsIOData) {
+    //     if(this._parsedStatisticsIOData) throw "IO Data already set";
+	// 	this._parsedStatisticsIOData = value;
+	// }
+	public addParsedStatisticsIOData(value: ParsedStatisticsIOData){
+		this._parsedStatisticsIOData.push(value);
 	}
 
-	public get parsedStatisticsTimeData(): ParsedStatisticsTimeData {
+	public get parsedStatisticsTimeData(): ParsedStatisticsTimeData[] {
 		return this._parsedStatisticsTimeData;
 	}
 
-	public set parsedStatisticsTimeData(value: ParsedStatisticsTimeData) {
-        if(this._parsedStatisticsTimeData) throw "Exec Times Data already set";
-		this._parsedStatisticsTimeData = value;
+	// public set parsedStatisticsTimeData(value: ParsedStatisticsTimeData) {
+    //     if(this._parsedStatisticsTimeData) throw "Exec Times Data already set";
+	// 	this._parsedStatisticsTimeData = value;
+	// }
+	public addParsedStatisticsTimeData(value: ParsedStatisticsTimeData){
+		this._parsedStatisticsTimeData.push(value);
 	}
 
-	public get parsedTableRowsAffectedData(): ParsedTableRowsAffectedData {
+	public get parsedTableRowsAffectedData(): ParsedTableRowsAffectedData[] {
 		return this._parsedTableRowsAffectedData;
 	}
 
-	public set parsedTableRowsAffectedData(value: ParsedTableRowsAffectedData) {
-        if(this._parsedTableRowsAffectedData) throw "N table rows affected already set";
-		this._parsedTableRowsAffectedData = value;
+	// public set parsedTableRowsAffectedData(value: ParsedTableRowsAffectedData) {
+    //     if(this._parsedTableRowsAffectedData) throw "N table rows affected already set";
+	// 	this._parsedTableRowsAffectedData = value;
+	// }
+	public addParsedTableRowsAffectedData(value: ParsedTableRowsAffectedData) {
+		this._parsedTableRowsAffectedData.push(value);
 	}
 
 

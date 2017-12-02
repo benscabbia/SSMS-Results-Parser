@@ -34,51 +34,138 @@ export class SSMSParser {
     }
 
     private static ParseSSMS(splitInput: string[]){
+        let executionStackTrace = new Collections.Stack<InputType>();
         let executionStack = new Collections.Stack<TableQueryResult>();
         let executionStack2: TableQueryResult[] = [];
         
         let tableQueryResults = new TableQueryResult();
 
         // contains table header
-        let isFirstTableRowHeader = true;
+        let isTableDataHeader = false;
         for(let i=0; i<splitInput.length; i++){
 
             let result: IData = this.GetInputType(splitInput[i]);
             
             // executionStack.add(result);
             // executionStack2.push(result);
+            let prevPeek = executionStackTrace.peek();
+            executionStackTrace.push(result.InputType);
             switch(result.InputType){
-
-                case InputType.TableData:
-                    if(isFirstTableRowHeader){
-                        isFirstTableRowHeader = false;
-                        tableQueryResults.parsedTableHeader = <ParsedTableData>result;
-                    }else{
-                        tableQueryResults.addParsedTableData(<ParsedTableData>result);
-                    }
-                    break;
-
-                case InputType.TableRowsAffectedData:
-                    tableQueryResults.parsedTableRowsAffectedData = <ParsedTableRowsAffectedData>result;
-                    break;
-                
+                //1
                 case InputType.StatisticsIOData:
-                    tableQueryResults.parsedStatisticsIOData = <ParsedStatisticsIOData>result;        
+
+                    if(!
+                        (// caused via non-select query
+                        prevPeek == InputType.StatisticsTimeData ||
+                        // caused via multi table join
+                        prevPeek == InputType.StatisticsIOData ||
+                        prevPeek == InputType.TableRowsAffectedData)
+                    ){
+                        throw "Incompatible SQL";
+                    }
+                    tableQueryResults.addParsedStatisticsIOData(<ParsedStatisticsIOData>result);        
+                    
                     tableQueryResults.parsedTableName = (<ParsedStatisticsIOData>result).tableName;
                     break;
                 
+                //2
                 case InputType.StatisticsTimeData:
-                    tableQueryResults.parsedStatisticsTimeData = <ParsedStatisticsTimeData>result;
+                    if(prevPeek != InputType.StatisticsTimeText) throw "Incompatible SQL";
+                    tableQueryResults.addParsedStatisticsTimeData(<ParsedStatisticsTimeData>result);
                     
-                    // Expecting this to be the last instruction so I reinitialise vars
-                    executionStack.push(tableQueryResults);
-                    executionStack2.push(tableQueryResults);
-                    isFirstTableRowHeader = true;
-                    tableQueryResults = new TableQueryResult();
+                    // Check if next i is last, we're finished
+                    if(i == splitInput.length - 1){
+                        executionStack.push(tableQueryResults);
+                        executionStack2.push(tableQueryResults);
+                        break;
+                    }
+                    //if next i is rows affected, save rows affected, push i, and reinit
+                    /* 2 -> 4
+                        SQL Server Execution Times:
+                        CPU time = 16 ms,  elapsed time = 22 ms.
+                        (100 row(s) affected)
+                    */
+                    let resultNext = this.GetInputType(splitInput[i+1]); 
+                    if( resultNext.InputType == InputType.TableRowsAffectedData ){
+                        
+                        tableQueryResults.addParsedTableRowsAffectedData(<ParsedTableRowsAffectedData>resultNext);
+                        i++; // increment i beyond next
+                        executionStack.push(tableQueryResults);
+                        tableQueryResults = new TableQueryResult();
+                    }
+ 
+                    // if next i is tableData save this and reinit
+                    /* 2 -> 3
+                    SQL Server parse and compile time: 
+                    CPU time = 0 ms, elapsed time = 0 ms.
+                    BusinessEntityID,FirstName,LastName,EmailAddr
+                    */
+                    else if( resultNext.InputType == InputType.TableData ){
+                        executionStack.push(tableQueryResults);
+                        tableQueryResults = new TableQueryResult();
+                    }
+
+                    //
+                    /* 2-> 1 dont care
+                     * QL Server parse and compile time: 
+                        CPU time = 0 ms, elapsed time = 8 ms.
+                        Table '#BD90D1F8'. Scan count 0, logical reads 100
+                     */
+
+                    // 2-> 5 we dont care, just save it
+                    
+
+                    // only this can be last instruction so I complete tableresult
+                    break;
+                //3
+                case InputType.TableData:
+                    if(prevPeek == null || prevPeek == InputType.StatisticsTimeData){
+                        // First Item in whole list, must be header
+                        isTableDataHeader = true;
+                    }else if(prevPeek != InputType.TableData) throw "Incompatible SQL";
+
+                    if(isTableDataHeader){
+                        isTableDataHeader = false;
+                        // add the table header
+                        tableQueryResults.parsedTableHeader = <ParsedTableData>result;
+                    }else{
+                        // append table data
+                        tableQueryResults.addParsedTableData(<ParsedTableData>result);
+                    }
+                    
+
                     break;
                 
+                //4
+                case InputType.TableRowsAffectedData:
+                    if(!
+                        (prevPeek == InputType.TableData ||
+                        // if non-select query, then it will postfix statsTimeData
+                        prevPeek == InputType.StatisticsTimeData)
+                    ){
+                        throw "Incompatible SQL";
+                    }
+                    tableQueryResults.addParsedTableRowsAffectedData(<ParsedTableRowsAffectedData>result);
+                    break;
+                
+                
+                //5
                 case InputType.StatisticsTimeText:
+                    // Don't care about saving data, just check compatability
+                    if( !(
+                        // First query start
+                        prevPeek == null || 
+                        prevPeek == InputType.StatisticsIOData ||
+                        prevPeek == InputType.StatisticsTimeData ||
+                        // 0 results in select causes this
+                        prevPeek == InputType.TableRowsAffectedData
+                    )){
+                            throw "Incompatible SQL";
+                        }
+
+                    break;
                 case InputType.Unknown:
+                    // Swallow for now
                     break;
                     
                 default:
@@ -88,6 +175,7 @@ export class SSMSParser {
 
         //end of calculation
         let a = "";
+        return executionStack;
     }
 
     private static GetInputType(input: string): IData{
