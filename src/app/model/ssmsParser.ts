@@ -63,9 +63,7 @@ export class SSMSParser {
                     ){
                         throw "Incompatible SQL";
                     }
-                    tableQueryResults.addParsedStatisticsIOData(<ParsedStatisticsIOData>result);        
-                    
-                    tableQueryResults.parsedTableName = (<ParsedStatisticsIOData>result).tableName;
+                    tableQueryResults.addParsedStatisticsIOData(<ParsedStatisticsIOData>result);                            
                     break;
                 
                 //2

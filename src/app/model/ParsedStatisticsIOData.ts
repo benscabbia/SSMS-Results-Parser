@@ -24,7 +24,7 @@ export class ParsedStatisticsIOData extends ParsedData {
         this._readAheadReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.ReadAheadReadsRegex));
         this._lobLogicalReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.LobLogicalReadsRegex));
         this._lobReadAheadReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.LobReadAheadRegex));
-        this._tableName = this.TryGetValues(this.Data, RegexExpressions.TableNameRegex, null);        
+        this._tableName = this.TryGetValues(this.Data, RegexExpressions.TableNameRegex, 1, null);        
     }
 	public get scanCount(): number  {
 		return this._scanCount;

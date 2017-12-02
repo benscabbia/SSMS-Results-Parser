@@ -16,7 +16,7 @@ export class TableQueryResult {
     private _parsedStatisticsTimeData: ParsedStatisticsTimeData[];
 	private _parsedTableRowsAffectedData: ParsedTableRowsAffectedData[];
 	
-	private _parsedTableName: string;
+	// private _parsedTableName: string; // many tables join,
     private _parsedTableHeader: ParsedTableData;	
     private _parsedTableData: ParsedTableData[];
 
@@ -64,14 +64,14 @@ export class TableQueryResult {
 	}
 
 
-	public get parsedTableName(): string {
-		return this._parsedTableName;
-	}
+	// public get parsedTableName(): string {
+	// 	return this._parsedTableName;
+	// }
 
-	public set parsedTableName(value: string) {
-        if(this._parsedTableName) throw "Table Name already set";		
-		this._parsedTableName = value;
-	}
+	// public set parsedTableName(value: string) {
+    //     if(this._parsedTableName) throw "Table Name already set";		
+	// 	this._parsedTableName = value;
+	// }
 
 	public get parsedTableHeader(): ParsedTableData {
 		return this._parsedTableHeader;
