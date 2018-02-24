@@ -7,8 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { QueryInputComponent } from './manager/query-input/query-input.component';
 import { ManagerComponent } from './manager/manager.component';
-import { AppConfigService } from "./services/appConfig.service";
-import { DataService } from "./services/data.service";
+import { AppConfigService } from './services/appConfig.service';
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [

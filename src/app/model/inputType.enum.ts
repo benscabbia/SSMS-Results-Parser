@@ -5,4 +5,4 @@ export enum InputType {
     TableData = 3,
     TableRowsAffectedData = 4,
     StatisticsTimeText = 5
-}    
+}

@@ -1,4 +1,4 @@
 export enum InputSource {
-    From = "fromInput",
-    To = "toInput"
+    From = 'fromInput',
+    To = 'toInput'
 }

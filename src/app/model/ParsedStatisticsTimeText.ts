@@ -1,4 +1,4 @@
-import { ParsedData } from "./ParsedData.abstract";
+import { ParsedData } from './ParsedData.abstract';
 
 export class ParsedStatisticsTimeText extends ParsedData {
 

@@ -1,3 +1,3 @@
 export class AppConfigService {
-    applicationTitle: string = "SSMS Results Parser";
+    applicationTitle = 'SSMS Results Parser';
 }

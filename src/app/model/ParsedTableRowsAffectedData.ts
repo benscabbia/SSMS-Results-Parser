@@ -1,5 +1,5 @@
-import { ParsedData } from "./ParsedData.abstract";
-import { RegexExpressions } from "./RegexExpressions";
+import { ParsedData } from './ParsedData.abstract';
+import { RegexExpressions } from './RegexExpressions';
 
 export class ParsedTableRowsAffectedData extends ParsedData {
     private _rowsAffected: number;

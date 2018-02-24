@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppConfigService } from "./services/appConfig.service";
+import { AppConfigService } from './services/appConfig.service';
 import './model/extensions';
 @Component({
   selector: 'app-root',
@@ -8,9 +8,9 @@ import './model/extensions';
 })
 export class AppComponent implements OnInit {
   title: string;
-  
-  constructor(private appConfigService: AppConfigService){}
-  
+
+  constructor(private appConfigService: AppConfigService) {}
+
   ngOnInit(): void {
     this.title = this.appConfigService.applicationTitle;
   }
