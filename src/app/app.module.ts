@@ -9,17 +9,23 @@ import { QueryInputComponent } from './manager/query-input/query-input.component
 import { ManagerComponent } from './manager/manager.component';
 import { AppConfigService } from './services/appConfig.service';
 import { DataService } from './services/data.service';
+import { ChartsModule } from 'ng2-charts';
+import { RadarChartComponent } from './manager/radar-chart/radar-chart.component';
+import { BarChartComponent } from './manager/bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     QueryInputComponent,
-    ManagerComponent
+    ManagerComponent,
+    RadarChartComponent,
+    BarChartComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ChartsModule
   ],
   providers: [AppConfigService, DataService],
   bootstrap: [AppComponent]
