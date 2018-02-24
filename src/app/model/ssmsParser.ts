@@ -28,9 +28,14 @@ export class SSMSParser {
         for (let i = 0; i < this.inputToProcess.length; i++) {
             if (!this.inputToProcess[i].hasSplitInput) { continue; }
 
-            inputProcessed.push(
-                this.ParseSSMS(this.inputToProcess[i].splitInput)
-            );
+            const processedInput = this.ParseSSMS(this.inputToProcess[i].splitInput);
+
+            // TODO: temp solution, should show appropriate message
+            if (processedInput.length > 0) {
+                inputProcessed.push(
+                    processedInput
+                );
+            }
         }
 
         return inputProcessed;
