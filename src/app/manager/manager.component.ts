@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { InputSource } from '../model/inputSource.enum';
 import { SSMSParser } from '../model/ssmsParser';
+import { TableQueryResult } from '../model/TableQueryResult';
 
 @Component({
   selector: 'app-manager',
@@ -30,7 +31,7 @@ export class ManagerComponent implements OnInit {
 
     // console.log(this.dataService.ssmsInput[InputSelector.From]);
     // console.log(this.dataService.ssmsInput[InputSelector.To]);
-    SSMSParser.ProcessInput(
+    const parsedData = SSMSParser.ProcessInput(
       this.dataService.ssmsInput[InputSource.From],
       this.dataService.ssmsInput[InputSource.To]
     );

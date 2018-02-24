@@ -14,15 +14,15 @@ import { TableQueryResult } from './TableQueryResult';
 export class SSMSParser {
     static inputToProcess: RawInputData[];
 
-    public static ProcessInput(inputA: string, inputB: string) {
+    public static ProcessInput(inputA: string, inputB: string): Array<TableQueryResult[]> {
         this.inputToProcess = new Array<RawInputData>();
         if (inputA) { this.inputToProcess.push(new RawInputData(inputA)); }
         if (inputB) { this.inputToProcess.push(new RawInputData(inputB)); }
 
-        this.Parse();
+        return this.Parse();
     }
 
-    private static Parse(): any {
+    private static Parse(): Array<TableQueryResult[]> {
         const inputProcessed = new Array<TableQueryResult[]>() ;
 
         for (let i = 0; i < this.inputToProcess.length; i++) {
@@ -33,9 +33,11 @@ export class SSMSParser {
             );
         }
 
+        return inputProcessed;
+
     }
 
-    private static ParseSSMS(splitInput: string[]) {
+    private static ParseSSMS(splitInput: string[]): TableQueryResult[] {
         const executionStackTrace = new Collections.Stack<InputType>();
         const executionStack = new Collections.Stack<TableQueryResult>();
         const executionStack2: TableQueryResult[] = [];
@@ -93,10 +95,10 @@ export class SSMSParser {
                         executionStack.push(tableQueryResults);
                         executionStack2.push(tableQueryResults);
                         tableQueryResults = new TableQueryResult();
- 
+
                     // if next i is tableData save this and reinit
                     /* 2 -> 3
-                    SQL Server parse and compile time: 
+                    SQL Server parse and compile time:
                     CPU time = 0 ms, elapsed time = 0 ms.
                     BusinessEntityID,FirstName,LastName,EmailAddr
                     */
@@ -175,7 +177,6 @@ export class SSMSParser {
         }
 
         // end of calculation
-        const a = '';
         return executionStack2;
     }
 
@@ -198,6 +199,4 @@ export class SSMSParser {
 
         return new ParsedTableData(InputType.TableData, input);
     }
-
-
 }
