@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { DataService } from '../services/data.service';
+import { DataProcessorService } from '../services/data-processor.service';
 import { InputSource } from '../model/inputSource.enum';
 import { SSMSParser } from '../model/ssmsParser';
 import { TableQueryResult } from '../model/TableQueryResult';
@@ -21,7 +22,7 @@ export class ManagerComponent implements OnInit {
   parsedData: Array<TableQueryResult[]>;
   private totalIO: RadarChartModel[] = new Array<RadarChartModel>();
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private dataProcessor: DataProcessorService) { }
 
   ngOnInit() {
   }
