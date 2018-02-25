@@ -13,6 +13,7 @@ export class ParsedStatisticsIOData extends ParsedData {
     private _physicalReads: number;
     private _readAheadReads: number;
     private _lobLogicalReads: number;
+    private _lobPhysicalReads: number;
     private _lobReadAheadReads: number;
     private _tableName: string;
 
@@ -23,6 +24,7 @@ export class ParsedStatisticsIOData extends ParsedData {
         this._physicalReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.PhysicalReadsRegex));
         this._readAheadReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.ReadAheadReadsRegex));
         this._lobLogicalReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.LobLogicalReadsRegex));
+        this._lobPhysicalReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.LobPhysicalReadsRegex));
         this._lobReadAheadReads = Number.parseInt(this.TryGetValues(this.Data, RegexExpressions.LobReadAheadRegex));
         this._tableName = this.TryGetValues(this.Data, RegexExpressions.TableNameRegex, 1, null);
     }
@@ -32,6 +34,10 @@ export class ParsedStatisticsIOData extends ParsedData {
 
     public get physicalReads(): number  {
         return this._physicalReads;
+    }
+
+    public get lobPhysicalReads(): number  {
+        return this._lobPhysicalReads;
     }
 
     public get lobLogicalReads(): number  {
