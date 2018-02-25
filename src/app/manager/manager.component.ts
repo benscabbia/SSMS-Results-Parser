@@ -3,6 +3,8 @@ import { DataService } from '../services/data.service';
 import { InputSource } from '../model/inputSource.enum';
 import { SSMSParser } from '../model/ssmsParser';
 import { TableQueryResult } from '../model/TableQueryResult';
+import { RadarChartModel } from './radar-chart/RadarChartModel';
+import { RadarData } from './radar-chart/radarData';
 
 @Component({
   selector: 'app-manager',
@@ -15,6 +17,9 @@ export class ManagerComponent implements OnInit {
 
   toChildFromInput = InputSource.From;
   toChildToInput = InputSource.To;
+  private hasData = false;
+  parsedData: Array<TableQueryResult[]>;
+  private totalIO: RadarChartModel[] = new Array<RadarChartModel>();
 
   constructor(private dataService: DataService) { }
 
@@ -31,10 +36,24 @@ export class ManagerComponent implements OnInit {
 
     // console.log(this.dataService.ssmsInput[InputSelector.From]);
     // console.log(this.dataService.ssmsInput[InputSelector.To]);
-    const parsedData = SSMSParser.ProcessInput(
+    this.parsedData = SSMSParser.ProcessInput(
       this.dataService.ssmsInput[InputSource.From],
       this.dataService.ssmsInput[InputSource.To]
     );
+
+    this.hasDataCheck();
+
+    const radarData = new RadarData([5, 3, 2, 2, 5], 'Query X');
+    const radarChartModel = new RadarChartModel(radarData,
+      ['Logical Reads', 'Physical Reads', 'Read-ahead Reads', 'Lob Logical Reads', 'Lob Read-ahead Reads']);
+
+    this.totalIO.push(
+      radarChartModel
+    );
+
+    // Calculate total for query 1 and query 2
+    // assign to totalQueryData{1 and 2}
+    // feed the componenets
 
   }
 
@@ -57,5 +76,15 @@ export class ManagerComponent implements OnInit {
 
   clearDataTo() {
     this.toInput.clearData();
+  }
+
+  hasDataCheck() {
+    if (this.parsedData.length > 0) {
+      this.hasData = true;
+    } else {
+      this.hasData = false;
+    }
+    // reset data
+    this.totalIO = new Array<RadarChartModel>();
   }
 }

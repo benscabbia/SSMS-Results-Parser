@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewEncapsulation, Input, ViewChild } from '@angular/core';
+import { RadarChartModel } from './RadarChartModel';
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 
 @Component({
   selector: 'app-radar-chart',
@@ -7,15 +9,15 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 // https://github.com/valor-software/ng2-charts/tree/master
-export class RadarChartComponent implements OnInit {
+export class RadarChartComponent implements OnInit, OnChanges {
+  @Input() element: RadarChartModel[] = null;
 
-  public radarChartLabels: string[] = ['Scan Count', 'Logical Reads', 'Physical Reads', 'Read-ahead Reads', 'Lob Logical Reads', 'Lob Physical Reads', 'Lob Read-ahead Reads'];
+  // We require accessing the child due to bug with updating labels: https://github.com/valor-software/ng2-charts/issues/774#issuecomment-298263293
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
-  public radarChartData: any = [
-    {data: [12, 14, 1, 1, 1, 1, 1], label: 'Query 1', lineTension: 0.2},
-    {data: [14, 11, 2, 2, 2, 2, 2], label: 'Query 2', lineTension: 0.2}
-  ];
-  public radarChartType = 'radar';
+  private _radarChartLabels: string[] = ['default'];
+  private _radarChartType: string = 'radar';
+  private _radarChartData: any = [{data: [0], label: 'default', lineTension: 0}];
 
   // events
   public chartClicked(e: any): void {
@@ -26,9 +28,52 @@ export class RadarChartComponent implements OnInit {
     console.log(e);
   }
 
-  constructor() { }
+  constructor() {
+    this.element = new Array<RadarChartModel>();
+  }
 
   ngOnInit() {
+
+  }
+
+  ngOnChanges() {
+    if (!this.element || this.element.length < 1) { return; }
+
+    this.radarChartLabels = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'die']; // this.element[0].radarChartLabels;
+    this.radarChartType = this.element[0].radarChartType;
+    const cData = this.element[0].radarChartData;
+    this.radarChartData = [
+      { data: cData.data, label: cData.label, lineTension: cData.lineTension}
+    ];
+    // bug with updating labels, view definition of chart in this page
+    this.chart.chart.config.data.labels = this.element[0].radarChartLabels;
+  }
+
+
+  public get radarChartLabels(): string[] {
+    return this._radarChartLabels;
+  }
+
+  public set radarChartLabels(value: string[]) {
+    this._radarChartLabels = value;
+  }
+
+
+  public get radarChartType(): string {
+    return this._radarChartType;
+  }
+
+  public set radarChartType(value: string) {
+    this._radarChartType = value;
+  }
+
+
+  public get radarChartData(): any {
+    return this._radarChartData;
+  }
+
+  public set radarChartData(value: any) {
+    this._radarChartData = value;
   }
 
 }
