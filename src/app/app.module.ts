@@ -28,7 +28,7 @@ import { DataProcessorService } from './services/data-processor.service';
     FormsModule,
     ChartsModule
   ],
-  providers: [AppConfigService, DataService, DataProcessorService],
+  providers: [AppConfigService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,7 +9,7 @@ export class DataService {
 
     (2 row(s) affected)
 
-    Table 'Schools'. Scan count 1, logical reads 2, physical reads 0, read-ahead reads 0, lob logical reads 0, lob physical reads 0, lob read-ahead reads 0.
+    Table 'Schools'. Scan count 1, logical reads 2, physical reads 10, read-ahead reads 10, lob logical reads 7, lob physical reads 3, lob read-ahead reads 2.
 
      SQL Server Execution Times:
        CPU time = 0 ms,  elapsed time = 165 ms.

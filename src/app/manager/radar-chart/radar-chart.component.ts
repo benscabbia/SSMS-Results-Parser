@@ -17,7 +17,11 @@ export class RadarChartComponent implements OnInit, OnChanges {
 
   private _radarChartLabels: string[] = ['default'];
   private _radarChartType: string = 'radar';
-  private _radarChartData: any = [{data: [0], label: 'default', lineTension: 0}];
+  private _radarChartData: any =
+    [
+      {data: [0], label: 'default', lineTension: 0},
+      {data: [0], label: 'default2', lineTension: 0}
+    ];
 
   // events
   public chartClicked(e: any): void {
@@ -39,12 +43,21 @@ export class RadarChartComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (!this.element || this.element.length < 1) { return; }
 
-    this.radarChartLabels = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'die']; // this.element[0].radarChartLabels;
+    // this.radarChartLabels = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'die']; // this.element[0].radarChartLabels;
     this.radarChartType = this.element[0].radarChartType;
-    const cData = this.element[0].radarChartData;
-    this.radarChartData = [
-      { data: cData.data, label: cData.label, lineTension: cData.lineTension}
-    ];
+    // const cData = this.element[0].radarChartData;
+    // this.radarChartData = [
+    //   { data: cData.data, label: cData.label, lineTension: cData.lineTension}
+    // ];
+
+    this.radarChartData = [];
+    this.element.forEach(element => {
+      const cData = element.radarChartData;
+       const temp = { data: cData.data, label: cData.label, lineTension: cData.lineTension};
+       this.radarChartData.push(temp);
+    });
+
+
     // bug with updating labels, view definition of chart in this page
     this.chart.chart.config.data.labels = this.element[0].radarChartLabels;
   }

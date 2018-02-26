@@ -10,7 +10,7 @@ import { RadarData } from './radar-chart/radarData';
 @Component({
   selector: 'app-manager',
   templateUrl: './manager.component.html',
-  styleUrls: ['./manager.component.css']
+  styleUrls: ['./manager.component.css'],
 })
 export class ManagerComponent implements OnInit {
   @ViewChild(InputSource.From) fromInput: any;
@@ -22,7 +22,7 @@ export class ManagerComponent implements OnInit {
   parsedData: Array<TableQueryResult[]>;
   private totalIO: RadarChartModel[] = new Array<RadarChartModel>();
 
-  constructor(private dataService: DataService, private dataProcessor: DataProcessorService) { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
   }
@@ -44,18 +44,50 @@ export class ManagerComponent implements OnInit {
 
     this.hasDataCheck();
 
-    const radarData = new RadarData([5, 3, 2, 2, 5], 'Query X');
-    const radarChartModel = new RadarChartModel(radarData,
-      ['Logical Reads', 'Physical Reads', 'Read-ahead Reads', 'Lob Logical Reads', 'Lob Read-ahead Reads']);
+    const data = new DataProcessorService(this.parsedData);
 
-    this.totalIO.push(
-      radarChartModel
-    );
+    const labels = ['Logical Reads', 'Physical Reads', 'Read-ahead Reads', 'Lob Logical Reads', 'Lob Phyiscal Reads', 'Lob Read-ahead Reads'];
 
-    // Calculate total for query 1 and query 2
-    // assign to totalQueryData{1 and 2}
-    // feed the componenets
 
+    if (data.query1HasData) {
+      // const radarData = new RadarData([5, 3, 2, 2, 5], 'Query X');
+      // const radarChartModel = new RadarChartModel(radarData,
+      //   ['Logical Reads', 'Physical Reads', 'Read-ahead Reads', 'Lob Logical Reads', 'Lob Read-ahead Reads']);
+      const radarData = new RadarData(
+        [
+          data.query1TotalIO.logicalReads,
+          data.query1TotalIO.physicalReads,
+          data.query1TotalIO.readAheadReads,
+          data.query1TotalIO.lobLogicalReads,
+          data.query1TotalIO.lobPhysicalReads,
+          data.query1TotalIO.lobReadAheadReads
+        ], 'Query 1'
+      );
+      const radarChartModel = new RadarChartModel(radarData, labels);
+      this.totalIO.push(
+        radarChartModel
+      );
+    }
+
+    if (data.query2HasData) {
+      // const radarData = new RadarData([5, 3, 2, 2, 5], 'Query X');
+      // const radarChartModel = new RadarChartModel(radarData,
+      //   ['Logical Reads', 'Physical Reads', 'Read-ahead Reads', 'Lob Logical Reads', 'Lob Read-ahead Reads']);
+      const radarData = new RadarData(
+        [
+          data.query2TotalIO.logicalReads,
+          data.query2TotalIO.physicalReads,
+          data.query2TotalIO.readAheadReads,
+          data.query2TotalIO.lobLogicalReads,
+          data.query2TotalIO.lobPhysicalReads,
+          data.query2TotalIO.lobReadAheadReads
+        ], 'Query 2'
+      );
+      const radarChartModel = new RadarChartModel(radarData, labels);
+      this.totalIO.push(
+        radarChartModel
+      );
+    }
   }
 
   populateFrom() {
