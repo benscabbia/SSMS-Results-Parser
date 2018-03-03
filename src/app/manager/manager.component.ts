@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { DataProcessorService } from '../services/data-processor.service';
+import { DataProcessor } from './DataProcessor';
 import { InputSource } from '../model/inputSource.enum';
 import { SSMSParser } from '../model/ssmsParser';
 import { TableQueryResult } from '../model/TableQueryResult';
 import { RadarChartModel } from './radar-chart/RadarChartModel';
 import { RadarData } from './radar-chart/radarData';
-import { InputParser } from '../model/InputParser';
+import { InputParser } from './InputParser';
 
 @Component({
   selector: 'app-manager',
@@ -43,7 +43,7 @@ export class ManagerComponent implements OnInit {
 
     this.hasDataCheck();
 
-    const data = new DataProcessorService(this.parsedData);
+    const data = new DataProcessor(this.parsedData);
 
     const labels = ['Logical Reads', 'Physical Reads', 'Read-ahead Reads', 'Lob Logical Reads', 'Lob Phyiscal Reads', 'Lob Read-ahead Reads'];
 

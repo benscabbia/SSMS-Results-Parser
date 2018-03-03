@@ -12,7 +12,6 @@ import { DataService } from './services/data.service';
 import { ChartsModule } from 'ng2-charts';
 import { RadarChartComponent } from './manager/radar-chart/radar-chart.component';
 import { BarChartComponent } from './manager/bar-chart/bar-chart.component';
-import { DataProcessorService } from './services/data-processor.service';
 
 @NgModule({
   declarations: [

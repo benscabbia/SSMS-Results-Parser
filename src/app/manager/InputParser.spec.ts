@@ -1,10 +1,10 @@
 import { InputParser } from './InputParser';
-import { TableQueryResult } from './TableQueryResult';
-import { ParsedStatisticsIOData } from './ParsedStatisticsIOData';
-import { ParsedStatisticsTimeData } from './ParsedStatisticsTimeData';
-import { ParsedTableData } from './ParsedTableData';
-import { ParsedTableRowsAffectedData } from './ParsedTableRowsAffectedData';
-import { InputType } from './inputType.enum';
+import { TableQueryResult } from '../model/TableQueryResult';
+import { ParsedStatisticsIOData } from '../model/ParsedStatisticsIOData';
+import { ParsedStatisticsTimeData } from '../model/ParsedStatisticsTimeData';
+import { ParsedTableData } from '../model/ParsedTableData';
+import { ParsedTableRowsAffectedData } from '../model/ParsedTableRowsAffectedData';
+import { InputType } from '../model/inputType.enum';
 
 
 describe('InputParser', () => {

@@ -1,12 +1,12 @@
-import { ParsedStatisticsTimeText } from './ParsedStatisticsTimeText';
-import { TableQueryResult } from './TableQueryResult';
-import { RawInputData } from './rawInputData';
-import { IData } from './IData.interface';
-import { ParsedStatisticsTimeData } from './ParsedStatisticsTimeData';
-import { ParsedStatisticsIOData } from './ParsedStatisticsIOData';
-import { ParsedTableRowsAffectedData } from './ParsedTableRowsAffectedData';
-import { InputType } from './inputType.enum';
-import { ParsedTableData } from './ParsedTableData';
+import { ParsedStatisticsTimeText } from '../model/ParsedStatisticsTimeText';
+import { TableQueryResult } from '../model/TableQueryResult';
+import { RawInputData } from '../model/rawInputData';
+import { IData } from '../model/IData.interface';
+import { ParsedStatisticsTimeData } from '../model/ParsedStatisticsTimeData';
+import { ParsedStatisticsIOData } from '../model/ParsedStatisticsIOData';
+import { ParsedTableRowsAffectedData } from '../model/ParsedTableRowsAffectedData';
+import { InputType } from '../model/inputType.enum';
+import { ParsedTableData } from '../model/ParsedTableData';
 import * as Collections from 'typescript-collections';
 
 

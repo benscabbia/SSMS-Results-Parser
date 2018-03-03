@@ -4,7 +4,7 @@ import { TotalIOData } from '../model/TotalIOData';
 import { TotalTimeData } from '../model/TotalTimeData';
 import { element } from 'protractor';
 
-export class DataProcessorService {
+export class DataProcessor {
 
 
   private _query1ParsedData: TableQueryResult[];
