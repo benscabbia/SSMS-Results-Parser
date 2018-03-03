@@ -5,6 +5,7 @@ import { TableQueryResult } from '../model/TableQueryResult';
 import { TotalTimeData } from '../model/TotalTimeData';
 import { TotalIOData } from '../model/TotalIOData';
 import { SSMSParser } from '../model/ssmsParser';
+import { InputParser } from '../model/InputParser';
 
 describe('Data processor behaves as expected when receiving null data', () => {
   const tableTestData = null;
@@ -54,7 +55,7 @@ describe('Data processor behaves as expected when receiving empty data', () => {
   });
 });
 
-xdescribe('Data processor behaves as expected when receiving real data (both)', () => {
+describe('Data processor behaves as expected when receiving real data (both)', () => {
   const dummyTestData = `
     Id,Name
     1,Chauncy
@@ -95,23 +96,54 @@ xdescribe('Data processor behaves as expected when receiving real data (both)', 
        CPU time = 0 ms,  elapsed time = 0 ms.
     `;
 
-    const tableTestData = SSMSParser.ProcessInput(dummyTestData, dummyTestData);
+    // const tableTestData = SSMSParser.ProcessInput(dummyTestData, dummyTestData);
+    const tableTestData = new InputParser(dummyTestData, dummyTestData);
 
-  it('QueryNHasData Should handle real data correctly', () => {
-    const dataProcessorService = new DataProcessorService(tableTestData);
-    expect(dataProcessorService.query1HasData).toBe(true);
-    expect(dataProcessorService.query2HasData).toBe(true);
+  describe('Query 1', () => {
+    it('Query 1 HasData Should handle real data correctly', () => {
+      const dataProcessorService = new DataProcessorService(tableTestData.GetTableQueryResult);
+      expect(dataProcessorService.query1HasData).toBe(true);
+    });
+
+    it('Should calculate totalTime data correctly', () => {
+      const dataProcessorService = new DataProcessorService(tableTestData.GetTableQueryResult);
+      expect(dataProcessorService.query1TotalTime.cpuTime).toEqual(0);
+      expect(dataProcessorService.query1TotalTime.elapsedTime).toEqual(165);
+    });
+
+    it('Should calculate totalIO data correctly', () => {
+      const dataProcessorService = new DataProcessorService(tableTestData.GetTableQueryResult);
+      expect(dataProcessorService.query1TotalIO.scanCount).toEqual(3);
+      expect(dataProcessorService.query1TotalIO.logicalReads).toEqual(16);
+      expect(dataProcessorService.query1TotalIO.physicalReads).toEqual(10);
+      expect(dataProcessorService.query1TotalIO.readAheadReads).toEqual(10);
+      expect(dataProcessorService.query1TotalIO.lobLogicalReads).toEqual(7);
+      expect(dataProcessorService.query1TotalIO.lobPhysicalReads).toEqual(3);
+      expect(dataProcessorService.query1TotalIO.lobReadAheadReads).toEqual(2);
+    });
   });
 
-  xit('Should handle totalTime data correctly, default TotalTimeData 0,0', () => {
-    const dataProcessorService = new DataProcessorService(tableTestData);
-    expect(dataProcessorService.query1TotalTime).toEqual(new TotalTimeData());
-    expect(dataProcessorService.query2TotalTime).toEqual(new TotalTimeData());
-  });
+  describe('Query 2', () => {
+    it('Query 1 HasData Should handle real data correctly', () => {
+      const dataProcessorService = new DataProcessorService(tableTestData.GetTableQueryResult);
+      expect(dataProcessorService.query2HasData).toBe(true);
+    });
 
-  xit('Should handle totalIO data correctly', () => {
-    const dataProcessorService = new DataProcessorService(tableTestData);
-    expect(dataProcessorService.query1TotalIO).toEqual(new TotalIOData());
-    expect(dataProcessorService.query2TotalIO).toEqual(new TotalIOData());
+    it('Should calculate totalTime data correctly', () => {
+      const dataProcessorService = new DataProcessorService(tableTestData.GetTableQueryResult);
+      expect(dataProcessorService.query2TotalTime.cpuTime).toEqual(0);
+      expect(dataProcessorService.query2TotalTime.elapsedTime).toEqual(165);
+    });
+
+    it('Should calculate totalIO data correctly', () => {
+      const dataProcessorService = new DataProcessorService(tableTestData.GetTableQueryResult);
+      expect(dataProcessorService.query2TotalIO.scanCount).toEqual(3);
+      expect(dataProcessorService.query2TotalIO.logicalReads).toEqual(16);
+      expect(dataProcessorService.query2TotalIO.physicalReads).toEqual(10);
+      expect(dataProcessorService.query2TotalIO.readAheadReads).toEqual(10);
+      expect(dataProcessorService.query2TotalIO.lobLogicalReads).toEqual(7);
+      expect(dataProcessorService.query2TotalIO.lobPhysicalReads).toEqual(3);
+      expect(dataProcessorService.query2TotalIO.lobReadAheadReads).toEqual(2);
+    });
   });
 });
