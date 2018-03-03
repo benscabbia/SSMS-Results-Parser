@@ -1,0 +1,70 @@
+<div class="col-md-12">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h1 class="panel-title">{{title}}</h1>
+    </div>
+    <div class="panel-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">{{tableHeader.firstColumn}}</th>
+            <th scope="col">
+              <span class="label label-danger">{{tableHeader.secondColumn}}</span>
+            </th>
+            <th scope="col">
+              <span class="label label-primary">{{tableHeader.thirdColumn}}</span>
+            </th>
+            <th scope="col">{{tableHeader.fouthColumn}}</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let row of tableRowData">
+            <th>{{row.dataType}}</th>
+            <td>{{row.query1}}</td>
+            <td>{{row.query2}}</td>
+            <td>
+                <span [class]="row.class">{{row.best}}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <div class="col-md-3">Scan Count</div>
+        <div class="col-md-9">
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" style="width: 20%">
+              <span>Q1</span>
+            </div>
+
+            <div class="progress-bar progress-bar-danger" style="width: 80%">
+              <span>Q2</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">Logical Reads</div>
+        <div class="col-md-9">
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" style="width: 40%">
+              <span>Q1</span>
+            </div>
+
+            <div class="progress-bar progress-bar-danger" style="width: 60%">
+              <span>Q2</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">Read-ahead Reads</div>
+        <div class="col-md-9">
+          <div class="progress">
+            <div class="progress-bar progress-bar-danger" style="width: 70%">
+              <span>Q1</span>
+            </div>
+
+            <div class="progress-bar progress-bar-success" style="width: 30%">
+              <span>Q2</span>
+            </div>
+          </div>
+        </div> -->
+    </div>
+  </div>
+</div>
