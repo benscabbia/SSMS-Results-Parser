@@ -6,6 +6,7 @@ import { SSMSParser } from '../model/ssmsParser';
 import { TableQueryResult } from '../model/TableQueryResult';
 import { RadarChartModel } from './radar-chart/RadarChartModel';
 import { RadarData } from './radar-chart/radarData';
+import { InputParser } from '../model/InputParser';
 
 @Component({
   selector: 'app-manager',
@@ -35,12 +36,10 @@ export class ManagerComponent implements OnInit {
     this.fromInput.submitData();
     this.toInput.submitData();
 
-    // console.log(this.dataService.ssmsInput[InputSelector.From]);
-    // console.log(this.dataService.ssmsInput[InputSelector.To]);
-    this.parsedData = SSMSParser.ProcessInput(
+    this.parsedData = new InputParser(
       this.dataService.ssmsInput[InputSource.From],
       this.dataService.ssmsInput[InputSource.To]
-    );
+    ).GetTableQueryResult;
 
     this.hasDataCheck();
 
