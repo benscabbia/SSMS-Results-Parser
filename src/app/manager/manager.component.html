@@ -41,186 +41,72 @@
   </div>
   <hr/>
   <div class="row top-buffer">
-      <!-- <div [hidden]="!hasData" > -->
-          <div  >
-        <div class="col-md-12">
-          <h1>Total IO</h1>
+    <!-- <div [hidden]="!hasData" > -->
+      <div class="col-md-12">
+        <h1>Total IO</h1>
+      </div>
+      <div class="col-md-5">
+        <app-generic-table [element]="tableData">
+          Loading...
+        </app-generic-table>
+      </div>
 
-        </div>
-        <div class="col-md-5">
-          <div class="col-md-12">
-            <div class="panel panel-primary">
-              <div class="panel-heading">
-                <h1 class="panel-title">Scan Counts</h1>
-              </div>
-              <div class="panel-body">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col"></th>
-                      <th scope="col"><span class="label label-warning">Query 1</span></th>
-                      <th scope="col"><span class="label label-success">Query 2</span></th>
-                      <th scope="col">Best</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">Scan Count</th>
-                      <td>12</td>
-                      <td>14</td>
-                      <td>
-                        <span class="label label-warning">Query 1</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Logical Reads</th>
-                      <td>14</td>
-                      <td>11</td>
-                      <td>
-                        <span class="label label-success">Query 2</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Physical Reads</th>
-                      <td>1</td>
-                      <td>2</td>
-                      <td>
-                        <span class="label label-warning">Query 1</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Read-ahead Reads</th>
-                      <td>1</td>
-                      <td>2</td>
-                      <td>
-                        <span class="label label-warning">Query 1</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Lob logical reads</th>
-                      <td>1</td>
-                      <td>2</td>
-                      <td>
-                        <span class="label label-warning">Query 1</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Lob Physical Reads</th>
-                      <td>1</td>
-                      <td>2</td>
-                      <td>
-                        <span class="label label-warning">Query 1</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Lob Read-ahead Reads</th>
-                      <td>1</td>
-                      <td>2</td>
-                      <td>
-                        <span class="label label-warning">Query 1</span>
-                      </td>
-                    </tr>
-  
-                  </tbody>
-                </table>
-                <!-- <div class="col-md-3">Scan Count</div>
-                <div class="col-md-9">
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-success" style="width: 20%">
-                      <span>Q1</span>
-                    </div>
-  
-                    <div class="progress-bar progress-bar-danger" style="width: 80%">
-                      <span>Q2</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">Logical Reads</div>
-                <div class="col-md-9">
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-success" style="width: 40%">
-                      <span>Q1</span>
-                    </div>
-  
-                    <div class="progress-bar progress-bar-danger" style="width: 60%">
-                      <span>Q2</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">Read-ahead Reads</div>
-                <div class="col-md-9">
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-danger" style="width: 70%">
-                      <span>Q1</span>
-                    </div>
-  
-                    <div class="progress-bar progress-bar-success" style="width: 30%">
-                      <span>Q2</span>
-                    </div>
-                  </div>
-                </div> -->
-              </div>
-            </div>
+      <div class="col-md-7">
+        <app-radar-chart [element]="totalIO">
+          Loading...
+        </app-radar-chart>
+      </div>
+    <hr/>
+    <div [hidden]="!hasData">
+      <div class="col-md-12">
+        <h1>Total Time</h1>
+      </div>
+      <div class="col-md-5">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h1 class="panel-title">CPU Time</h1>
           </div>
-        </div>
-  
-        <div class="col-md-7">
-          <app-radar-chart [element]="totalIO">
-            Loading...
-          </app-radar-chart>
+          <div class="panel-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Query 1</th>
+                  <th scope="col">Query 2</th>
+                  <th scope="col">Best</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">CPU Time</th>
+                  <td>1ms</td>
+                  <td>0ms</td>
+                  <td>
+                    <span class="label label-warning">Query 1</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Elapsed Time</th>
+                  <td>165ms</td>
+                  <td>100ms</td>
+                  <td>
+                    <span class="label label-success">Query 2</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-      <hr/>
-      <div [hidden]="!hasData" >
-        <div class="col-md-12">
-          <h1>Total Time</h1>
-        </div>
-          <div class="col-md-5">
-              <div class="panel panel-success">
-                <div class="panel-heading">
-                  <h1 class="panel-title">CPU Time</h1>
-                </div>
-                <div class="panel-body">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Query 1</th>
-                        <th scope="col">Query 2</th>
-                        <th scope="col">Best</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">CPU Time</th>
-                        <td>1ms</td>
-                        <td>0ms</td>
-                        <td>
-                          <span class="label label-warning">Query 1</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Elapsed Time</th>
-                        <td>165ms</td>
-                        <td>100ms</td>
-                        <td>
-                          <span class="label label-success">Query 2</span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-            </div>
-          </div>
-    
-          <div class="col-md-7">
-            <app-bar-chart>
-              Loading...
-            </app-bar-chart>
-          </div>
-        </div>
 
-    
+      <div class="col-md-7">
+        <app-bar-chart>
+          Loading...
+        </app-bar-chart>
+      </div>
+    </div>
+
+
 
     <div class="col-md-12" [hidden]="hasData">
       <p>Add your SSMS output and press run.</p>

@@ -7,6 +7,9 @@ import { TableQueryResult } from '../model/TableQueryResult';
 import { RadarChartModel } from './radar-chart/RadarChartModel';
 import { RadarData } from './radar-chart/radarData';
 import { InputParser } from './InputParser';
+import { TableData } from './generic-table/TableData';
+import { TableRowData } from './generic-table/TableRowData';
+import { TableHeader } from './generic-table/TableHeader';
 
 @Component({
   selector: 'app-manager',
@@ -22,6 +25,7 @@ export class ManagerComponent implements OnInit {
   private hasData = false;
   parsedData: Array<TableQueryResult[]>;
   private totalIO: RadarChartModel[] = new Array<RadarChartModel>();
+  private tableData: TableData;
 
   constructor(private dataService: DataService) { }
 
@@ -47,6 +51,22 @@ export class ManagerComponent implements OnInit {
 
     const labels = ['Logical Reads', 'Physical Reads', 'Read-ahead Reads', 'Lob Logical Reads', 'Lob Phyiscal Reads', 'Lob Read-ahead Reads'];
 
+    if (data.query1HasData && data.query2HasData) {
+
+      const tableHeader: TableHeader = new TableHeader('', 'Query 1', 'Query 2', 'Best');
+      const tableRowData: TableRowData[] = new Array<TableRowData>();
+      const totalIO1 = data.query1TotalIO;
+      const totalIO2 = data.query2TotalIO;
+      tableRowData.push(new TableRowData('Scan Count', totalIO1.scanCount, totalIO2.scanCount));
+      tableRowData.push(new TableRowData('Logical Reads', totalIO1.logicalReads, totalIO2.logicalReads));
+      tableRowData.push(new TableRowData('Physical Reads', totalIO1.physicalReads, totalIO2.physicalReads));
+      tableRowData.push(new TableRowData('Read Ahead Reads', totalIO1.readAheadReads, totalIO2.readAheadReads));
+      tableRowData.push(new TableRowData('Lob Logical Reads', totalIO1.lobLogicalReads, totalIO2.lobLogicalReads));
+      tableRowData.push(new TableRowData('Lob Physical Reads', totalIO1.lobPhysicalReads, totalIO2.lobPhysicalReads));
+      tableRowData.push(new TableRowData('Lob Read Ahead Reads', totalIO1.lobReadAheadReads, totalIO2.lobReadAheadReads));
+      this.tableData = new TableData('Total IO', tableHeader, tableRowData);
+      // return;
+    }
 
     if (data.query1HasData) {
       // const radarData = new RadarData([5, 3, 2, 2, 5], 'Query X');

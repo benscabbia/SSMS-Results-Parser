@@ -12,6 +12,7 @@ import { DataService } from './services/data.service';
 import { ChartsModule } from 'ng2-charts';
 import { RadarChartComponent } from './manager/radar-chart/radar-chart.component';
 import { BarChartComponent } from './manager/bar-chart/bar-chart.component';
+import { GenericTableComponent } from './manager/generic-table/generic-table.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { BarChartComponent } from './manager/bar-chart/bar-chart.component';
     QueryInputComponent,
     ManagerComponent,
     RadarChartComponent,
-    BarChartComponent
+    BarChartComponent,
+    GenericTableComponent
   ],
   imports: [
     BrowserModule,
