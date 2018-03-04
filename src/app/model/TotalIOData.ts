@@ -1,12 +1,12 @@
 export class TotalIOData {
 
-    private _scanCount: number = 0;
-    private _logicalReads: number = 0;
-    private _physicalReads: number = 0;
-    private _readAheadReads: number = 0;
-    private _lobLogicalReads: number = 0;
-    private _lobPhysicalReads: number = 0;
-    private _lobReadAheadReads: number = 0;
+    private _scanCount: number = -1;
+    private _logicalReads: number = -1;
+    private _physicalReads: number = -1;
+    private _readAheadReads: number = -1;
+    private _lobLogicalReads: number = -1;
+    private _lobPhysicalReads: number = -1;
+    private _lobReadAheadReads: number = -1;
 
 
     public get scanCount(): number {

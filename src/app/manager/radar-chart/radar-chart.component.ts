@@ -65,7 +65,7 @@ export class RadarChartComponent implements OnInit, OnChanges {
     // bug in charts where the number of _radarChartData determines the number of data queries it expects
     // regardless of its cycle. We default to 2, so if 1, we return an empty data set to avoid exception
     if (this.radarChartData.length === 1) {
-      const temp = { data: null, label: 'No Query 2', lineTension: null };
+      const temp = { data: [-1], label: 'No Query 2', lineTension: 0.2 };
       this.radarChartData.push(temp);
     }
 

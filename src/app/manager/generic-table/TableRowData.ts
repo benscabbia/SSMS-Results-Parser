@@ -1,16 +1,22 @@
 export class TableRowData {
     private _dataType: string;
-    private _query1: number;
-    private _query2: number;
+    private _query1: string;
+    private _query2: string;
     private _best: string;
     private _class: string;
 
     constructor(dataType: string, query1: number, query2: number) {
         this._dataType = dataType;
-        this._query1 = query1;
-        this._query2 = query2;
+        this._query1 = query1.toString();
+        this._query2 = query2.toString();
         this._class = 'label ';
 
+        if (query2 === -1) {
+            this._best = 'N/A';
+            this._class += 'label-default';
+            this._query2 = '---';
+            return;
+        }
         if (this._query1 < this._query2) {
             this._best = 'Query 1';
             this._class += 'label-danger';
@@ -31,19 +37,19 @@ export class TableRowData {
         this._dataType = value;
     }
 
-    public get query1(): number {
+    public get query1(): string {
         return this._query1;
     }
 
-    public set query1(value: number) {
+    public set query1(value: string) {
         this._query1 = value;
     }
 
-    public get query2(): number {
+    public get query2(): string {
         return this._query2;
     }
 
-    public set query2(value: number) {
+    public set query2(value: string) {
         this._query2 = value;
     }
 

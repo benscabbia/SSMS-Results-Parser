@@ -15,8 +15,6 @@ export class GenericTableComponent implements OnInit, OnChanges {
   public title: string;
   public tableHeader: TableHeader = new TableHeader('1', '2', '3', '4');
   public tableRowData: TableRowData[];
-  public test: string = 'TEST';
-
   constructor() { }
 
   ngOnInit() {
