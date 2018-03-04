@@ -9,3 +9,8 @@
 .top-buffer { 
     margin-top:25px; 
 }
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+ }
