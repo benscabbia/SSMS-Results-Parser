@@ -15,6 +15,11 @@ export class TableRowData {
             this._best = 'N/A';
             this._class += 'label-default';
             this._query2 = '---';
+
+            if (dataType === 'CPU Time' || dataType === 'Elapsed Time') {
+                // barchart looks weird with -1
+                this._query2 = '0';
+            }
             return;
         }
         if (this._query1 < this._query2) {

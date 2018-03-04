@@ -1,7 +1,7 @@
 export class TotalTimeData {
 
-    private _cpuTime: number = 0;
-    private _elapsedTime: number = 0;
+    private _cpuTime: number = -1;
+    private _elapsedTime: number = -1;
 
 
     public get cpuTime(): number {

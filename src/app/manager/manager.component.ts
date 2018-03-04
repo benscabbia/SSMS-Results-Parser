@@ -12,6 +12,8 @@ import { TableRowData } from './generic-table/TableRowData';
 import { TableHeader } from './generic-table/TableHeader';
 import { TotalIOData } from '../model/TotalIOData';
 import { TotalTimeData } from '../model/TotalTimeData';
+import { BarData } from './bar-chart/barData';
+import { BarChartModel } from './bar-chart/BarChartModel';
 
 @Component({
   selector: 'app-manager',
@@ -28,7 +30,10 @@ export class ManagerComponent implements OnInit {
   parsedData: Array<TableQueryResult[]>;
   private totalIO: RadarChartModel[] = new Array<RadarChartModel>();
   private tableIOData: TableData;
+
   private tableTimeData: TableData;
+  private totalTime: BarChartModel[] = new Array<BarChartModel>();
+
 
   constructor(private dataService: DataService) { }
 
@@ -52,7 +57,8 @@ export class ManagerComponent implements OnInit {
 
     const data = new DataProcessor(this.parsedData);
 
-    const labels = ['Scan Count', 'Logical Reads', 'Physical Reads', 'Read-ahead Reads', 'Lob Logical Reads', 'Lob Phyiscal Reads', 'Lob Read-ahead Reads'];
+    const labelsIO = ['Scan Count', 'Logical Reads', 'Physical Reads', 'Read-ahead Reads', 'Lob Logical Reads', 'Lob Phyiscal Reads', 'Lob Read-ahead Reads'];
+    const labelsTime = ['CPU Time', 'Elapsed Time'];
 
     if (!data.query1HasData && !data.query2HasData) {
       return;
@@ -61,6 +67,7 @@ export class ManagerComponent implements OnInit {
     let query2Label = 'No Query 2';
     let totalIO2 = new TotalIOData();
     let totalTime2 = new TotalTimeData();
+
     if (data.query1HasData) {
       const radarData = new RadarData(
         [
@@ -73,9 +80,21 @@ export class ManagerComponent implements OnInit {
           data.query1TotalIO.lobReadAheadReads
         ], 'Query 1'
       );
-      const radarChartModel = new RadarChartModel(radarData, labels);
+      const radarChartModel = new RadarChartModel(radarData, labelsIO);
       this.totalIO.push(
         radarChartModel
+      );
+
+      const barData = new BarData(
+        [
+          data.query1TotalTime.cpuTime,
+          data.query1TotalTime.elapsedTime
+        ],
+        'Query 1'
+      );
+      const barChartModel = new BarChartModel(barData, labelsTime);
+      this.totalTime.push(
+        barChartModel
       );
     }
 
@@ -95,9 +114,21 @@ export class ManagerComponent implements OnInit {
           data.query2TotalIO.lobReadAheadReads
         ], 'Query 2'
       );
-      const radarChartModel = new RadarChartModel(radarData, labels);
+      const radarChartModel = new RadarChartModel(radarData, labelsIO);
       this.totalIO.push(
         radarChartModel
+      );
+
+      const barData = new BarData(
+        [
+          data.query2TotalTime.cpuTime,
+          data.query2TotalTime.elapsedTime
+        ],
+        'Query 2'
+      );
+      const barChartModel = new BarChartModel(barData, labelsTime);
+      this.totalTime.push(
+        barChartModel
       );
     }
 
@@ -108,6 +139,7 @@ export class ManagerComponent implements OnInit {
   private populateTotalTimeTableData(totalTime1: TotalTimeData, totalTime2: TotalTimeData, query2Label: string) {
     const tableHeader: TableHeader = new TableHeader('', 'Query 1', query2Label, 'Best');
     const tableRowData: TableRowData[] = new Array<TableRowData>();
+
     tableRowData.push(new TableRowData('CPU Time', totalTime1.cpuTime, totalTime2.cpuTime));
     tableRowData.push(new TableRowData('Elapsed Time', totalTime1.elapsedTime, totalTime2.elapsedTime));
     this.tableTimeData = new TableData('Total Time', tableHeader, tableRowData, 'panel panel-success');
@@ -155,5 +187,6 @@ export class ManagerComponent implements OnInit {
     }
     // reset data
     this.totalIO = new Array<RadarChartModel>();
+    this.totalTime = new Array<BarChartModel>();
   }
 }
