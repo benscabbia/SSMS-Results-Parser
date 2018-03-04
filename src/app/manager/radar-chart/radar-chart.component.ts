@@ -15,7 +15,16 @@ export class RadarChartComponent implements OnInit, OnChanges {
   // We require accessing the child due to bug with updating labels: https://github.com/valor-software/ng2-charts/issues/774#issuecomment-298263293
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
-  private _radarChartLabels: string[] = ['default'];
+  private _radarChartLabels: string[] =
+    [
+      'Scan Count',
+      'Logical Reads',
+      'Physical Reads',
+      'Read-ahead Reads',
+      'Lob Logical Reads',
+      'Lob Physical Reads',
+      'Lob Read-ahead Reads'
+    ];
   private _radarChartType: string = 'radar';
   private _radarChartData: any =
     [
@@ -60,8 +69,10 @@ export class RadarChartComponent implements OnInit, OnChanges {
       this.radarChartData.push(temp);
     }
 
-    // bug with updating labels, view definition of chart in this page
-    this.chart.chart.config.data.labels = this.element[0].radarChartLabels;
+    // bug with updating labels, view definition of chart in this page. On first load not available though.
+    if (this.chart.chart !== undefined && this.chart.chart.config !== undefined) {
+      this.chart.chart.config.data.labels = this.element[0].radarChartLabels;
+    }
   }
 
 
