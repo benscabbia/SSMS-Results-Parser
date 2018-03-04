@@ -11,6 +11,7 @@ import { TableData } from './generic-table/TableData';
 import { TableRowData } from './generic-table/TableRowData';
 import { TableHeader } from './generic-table/TableHeader';
 import { TotalIOData } from '../model/TotalIOData';
+import { TotalTimeData } from '../model/TotalTimeData';
 
 @Component({
   selector: 'app-manager',
@@ -26,7 +27,8 @@ export class ManagerComponent implements OnInit {
   private hasData = false;
   parsedData: Array<TableQueryResult[]>;
   private totalIO: RadarChartModel[] = new Array<RadarChartModel>();
-  private tableData: TableData;
+  private tableIOData: TableData;
+  private tableTimeData: TableData;
 
   constructor(private dataService: DataService) { }
 
@@ -58,10 +60,8 @@ export class ManagerComponent implements OnInit {
 
     let query2Label = 'No Query 2';
     let totalIO2 = new TotalIOData();
+    let totalTime2 = new TotalTimeData();
     if (data.query1HasData) {
-      // const radarData = new RadarData([5, 3, 2, 2, 5], 'Query X');
-      // const radarChartModel = new RadarChartModel(radarData,
-      //   ['Logical Reads', 'Physical Reads', 'Read-ahead Reads', 'Lob Logical Reads', 'Lob Read-ahead Reads']);
       const radarData = new RadarData(
         [
           data.query1TotalIO.scanCount,
@@ -80,11 +80,9 @@ export class ManagerComponent implements OnInit {
     }
 
     if (data.query2HasData) {
-      // const radarData = new RadarData([5, 3, 2, 2, 5], 'Query X');
-      // const radarChartModel = new RadarChartModel(radarData,
-      //   ['Logical Reads', 'Physical Reads', 'Read-ahead Reads', 'Lob Logical Reads', 'Lob Read-ahead Reads']);
       query2Label = 'Query 2';
       totalIO2 = data.query2TotalIO;
+      totalTime2 = data.query2TotalTime;
 
       const radarData = new RadarData(
         [
@@ -103,9 +101,21 @@ export class ManagerComponent implements OnInit {
       );
     }
 
+    this.populateTotalIOTableData(data.query1TotalIO, totalIO2, query2Label);
+    this.populateTotalTimeTableData(data.query1TotalTime, totalTime2, query2Label);
+  }
+
+  private populateTotalTimeTableData(totalTime1: TotalTimeData, totalTime2: TotalTimeData, query2Label: string) {
     const tableHeader: TableHeader = new TableHeader('', 'Query 1', query2Label, 'Best');
     const tableRowData: TableRowData[] = new Array<TableRowData>();
-    const totalIO1 = data.query1TotalIO;
+    tableRowData.push(new TableRowData('CPU Time', totalTime1.cpuTime, totalTime2.cpuTime));
+    tableRowData.push(new TableRowData('Elapsed Time', totalTime1.elapsedTime, totalTime2.elapsedTime));
+    this.tableTimeData = new TableData('Total Time', tableHeader, tableRowData, 'panel panel-success');
+  }
+
+  private populateTotalIOTableData(totalIO1: TotalIOData, totalIO2: TotalIOData, query2Label: string) {
+    const tableHeader: TableHeader = new TableHeader('', 'Query 1', query2Label, 'Best');
+    const tableRowData: TableRowData[] = new Array<TableRowData>();
     tableRowData.push(new TableRowData('Scan Count', totalIO1.scanCount, totalIO2.scanCount));
     tableRowData.push(new TableRowData('Logical Reads', totalIO1.logicalReads, totalIO2.logicalReads));
     tableRowData.push(new TableRowData('Physical Reads', totalIO1.physicalReads, totalIO2.physicalReads));
@@ -113,8 +123,7 @@ export class ManagerComponent implements OnInit {
     tableRowData.push(new TableRowData('Lob Logical Reads', totalIO1.lobLogicalReads, totalIO2.lobLogicalReads));
     tableRowData.push(new TableRowData('Lob Physical Reads', totalIO1.lobPhysicalReads, totalIO2.lobPhysicalReads));
     tableRowData.push(new TableRowData('Lob Read-ahead Reads', totalIO1.lobReadAheadReads, totalIO2.lobReadAheadReads));
-    this.tableData = new TableData('Total IO', tableHeader, tableRowData);
-    // return;
+    this.tableIOData = new TableData('Total IO', tableHeader, tableRowData, 'panel panel-primary');
   }
 
   populateFrom() {

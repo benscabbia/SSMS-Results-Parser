@@ -46,7 +46,7 @@
         <h1>Total IO</h1>
       </div>
       <div class="col-md-5 nopadding">
-        <app-generic-table [element]="tableData">
+        <app-generic-table [element]="tableIOData">
           Loading...
         </app-generic-table>
       </div>
@@ -59,46 +59,15 @@
         </div>
       </div>
       <hr/>
-      <div [hidden]="!hasData">
+
+      <div *ngIf="hasData">
         <div class="col-md-12">
           <h1>Total Time</h1>
         </div>
-        <div class="col-md-5">
-          <div class="panel panel-success">
-            <div class="panel-heading">
-              <h1 class="panel-title">CPU Time</h1>
-            </div>
-            <div class="panel-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Query 1</th>
-                    <th scope="col">Query 2</th>
-                    <th scope="col">Best</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">CPU Time</th>
-                    <td>1ms</td>
-                    <td>0ms</td>
-                    <td>
-                      <span class="label label-warning">Query 1</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Elapsed Time</th>
-                    <td>165ms</td>
-                    <td>100ms</td>
-                    <td>
-                      <span class="label label-success">Query 2</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+        <div class="col-md-5 nopadding">
+          <app-generic-table [element]="tableTimeData">
+            Loading...
+          </app-generic-table>
         </div>
 
         <div class="col-md-7">

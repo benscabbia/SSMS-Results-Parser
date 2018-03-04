@@ -12,6 +12,7 @@ import { TableRowData } from './TableRowData';
 export class GenericTableComponent implements OnInit, OnChanges {
   @Input() element: TableData;
 
+  public panelClass: string = 'panel panel-primary';
   public title: string;
   public tableHeader: TableHeader = new TableHeader('1', '2', '3', '4');
   public tableRowData: TableRowData[];
@@ -23,6 +24,7 @@ export class GenericTableComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (!this.element) { return; }
 
+    this.panelClass = this.element.panelClass;
     this.title = this.element.title;
     this.tableHeader = this.element.tableHeader;
     this.tableRowData = this.element.tableRowData;

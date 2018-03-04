@@ -5,14 +5,14 @@ export class TableData {
     private _title: string;
     private _tableHeader: TableHeader;
     private _tableRowData: TableRowData[];
+    private _panelClass: string;
 
-
-    constructor(title: string, tableHeader: TableHeader, tableRowData: TableRowData[]) {
+    constructor(title: string, tableHeader: TableHeader, tableRowData: TableRowData[], panelClass: string) {
         this._title = title;
         this._tableHeader = tableHeader;
         this._tableRowData = tableRowData;
+        this._panelClass = panelClass;
     }
-
 
     public get title(): string {
         return this._title;
@@ -37,6 +37,15 @@ export class TableData {
     public set tableRowData(value: TableRowData[]) {
         this._tableRowData = value;
     }
+
+    public get panelClass(): string {
+        return this._panelClass;
+    }
+
+    public set panelClass(value: string) {
+        this._panelClass = value;
+    }
+
 
 
 }
