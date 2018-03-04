@@ -60,10 +60,10 @@ export class ManagerComponent implements OnInit {
       tableRowData.push(new TableRowData('Scan Count', totalIO1.scanCount, totalIO2.scanCount));
       tableRowData.push(new TableRowData('Logical Reads', totalIO1.logicalReads, totalIO2.logicalReads));
       tableRowData.push(new TableRowData('Physical Reads', totalIO1.physicalReads, totalIO2.physicalReads));
-      tableRowData.push(new TableRowData('Read Ahead Reads', totalIO1.readAheadReads, totalIO2.readAheadReads));
+      tableRowData.push(new TableRowData('Read-ahead Reads', totalIO1.readAheadReads, totalIO2.readAheadReads));
       tableRowData.push(new TableRowData('Lob Logical Reads', totalIO1.lobLogicalReads, totalIO2.lobLogicalReads));
       tableRowData.push(new TableRowData('Lob Physical Reads', totalIO1.lobPhysicalReads, totalIO2.lobPhysicalReads));
-      tableRowData.push(new TableRowData('Lob Read Ahead Reads', totalIO1.lobReadAheadReads, totalIO2.lobReadAheadReads));
+      tableRowData.push(new TableRowData('Lob Read-ahead Reads', totalIO1.lobReadAheadReads, totalIO2.lobReadAheadReads));
       this.tableData = new TableData('Total IO', tableHeader, tableRowData);
       // return;
     }
@@ -74,6 +74,7 @@ export class ManagerComponent implements OnInit {
       //   ['Logical Reads', 'Physical Reads', 'Read-ahead Reads', 'Lob Logical Reads', 'Lob Read-ahead Reads']);
       const radarData = new RadarData(
         [
+          data.query1TotalIO.scanCount,
           data.query1TotalIO.logicalReads,
           data.query1TotalIO.physicalReads,
           data.query1TotalIO.readAheadReads,
@@ -94,6 +95,7 @@ export class ManagerComponent implements OnInit {
       //   ['Logical Reads', 'Physical Reads', 'Read-ahead Reads', 'Lob Logical Reads', 'Lob Read-ahead Reads']);
       const radarData = new RadarData(
         [
+          data.query2TotalIO.scanCount,
           data.query2TotalIO.logicalReads,
           data.query2TotalIO.physicalReads,
           data.query2TotalIO.readAheadReads,
