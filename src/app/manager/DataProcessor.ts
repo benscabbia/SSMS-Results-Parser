@@ -55,6 +55,7 @@ export class DataProcessor {
 
     data.forEach(outerElement => {
       outerElement.parsedStatisticsIOData.forEach(innerElement => {
+        this.InitializeTotalIO(totalIO);
         totalIO.scanCount += innerElement.scanCount;
         totalIO.logicalReads += innerElement.logicalReads;
         totalIO.physicalReads += innerElement.physicalReads;
@@ -73,12 +74,32 @@ export class DataProcessor {
 
     data.forEach(outerElement => {
       outerElement.parsedStatisticsTimeData.forEach(innerElement => {
+        this.InitializeTotalTime(totalTime);
         totalTime.cpuTime += innerElement.CPUTime;
         totalTime.elapsedTime += innerElement.elapsedTime;
       });
     });
 
     return totalTime;
+  }
+
+  private InitializeTotalIO(totalIO: TotalIOData) {
+    if (totalIO.scanCount === -1) {
+      totalIO.scanCount = 0;
+      totalIO.logicalReads = 0;
+      totalIO.physicalReads = 0;
+      totalIO.readAheadReads = 0;
+      totalIO.lobLogicalReads = 0;
+      totalIO.lobPhysicalReads = 0;
+      totalIO.lobReadAheadReads = 0;
+    }
+  }
+
+  private InitializeTotalTime(totalIO: TotalTimeData) {
+    if (totalIO.cpuTime === -1) {
+      totalIO.cpuTime = 0;
+      totalIO.elapsedTime = 0;
+    }
   }
 
   private HasDoubleQuery(): boolean {
