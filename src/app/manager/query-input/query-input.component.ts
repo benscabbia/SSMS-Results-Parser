@@ -30,6 +30,10 @@ export class QueryInputComponent implements OnInit {
     this.textInput = '';
   }
 
+  public setData(input: string) {
+    this.textInput = input;
+  }
+
 
 
 }

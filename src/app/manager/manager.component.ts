@@ -171,6 +171,12 @@ export class ManagerComponent implements OnInit {
     this.toInput.populateDummyData();
   }
 
+  swapInput() {
+    const temp = this.fromInput.textInput;
+    this.fromInput.setData(this.toInput.textInput);
+    this.toInput.setData(temp);
+  }
+
   clearDataFrom() {
     this.fromInput.clearData();
   }
