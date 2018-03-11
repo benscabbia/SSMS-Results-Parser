@@ -21,9 +21,9 @@ export class RadarChartComponent implements OnInit, OnChanges {
       'Logical Reads',
       'Physical Reads',
       'Read-ahead Reads',
-      'Lob Logical Reads',
-      'Lob Physical Reads',
-      'Lob Read-ahead Reads'
+      // 'Lob Logical Reads',
+      // 'Lob Physical Reads',
+      // 'Lob Read-ahead Reads'
     ];
   private _radarChartType: string = 'radar';
   private _radarChartData: any =

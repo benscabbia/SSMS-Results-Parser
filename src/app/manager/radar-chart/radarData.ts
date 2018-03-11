@@ -19,6 +19,10 @@ export class RadarData {
         this._data = value;
     }
 
+    public appendData(value: number[]) {
+        this._data = this._data.concat(value);
+    }
+
     public get label(): string {
         return this._label;
     }

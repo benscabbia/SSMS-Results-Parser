@@ -24,6 +24,7 @@ export class ManagerComponent implements OnInit {
   @ViewChild(InputSource.From) fromInput: any;
   @ViewChild(InputSource.To) toInput: any;
 
+  _addLobToCharts = false;
   toChildFromInput = InputSource.From;
   toChildToInput = InputSource.To;
   private hasData = false;
@@ -35,6 +36,7 @@ export class ManagerComponent implements OnInit {
   private totalTime: BarChartModel[] = new Array<BarChartModel>();
 
   private _tableDetailedData: TableData[];
+
 
   constructor(private dataService: DataService) { }
 
@@ -58,11 +60,15 @@ export class ManagerComponent implements OnInit {
 
     const data = new DataProcessor(this.parsedData);
 
-    const labelsIO = ['Scan Count', 'Logical Reads', 'Physical Reads', 'Read-ahead Reads', 'Lob Logical Reads', 'Lob Phyiscal Reads', 'Lob Read-ahead Reads'];
-    const labelsTime = ['CPU Time', 'Elapsed Time'];
-
     if (!data.query1HasData && !data.query2HasData) {
       return;
+    }
+
+    let labelsIO = ['Scan Count', 'Logical Reads', 'Physical Reads', 'Read-ahead Reads'];
+    const labelsTime = ['CPU Time', 'Elapsed Time'];
+
+    if (this._addLobToCharts) {
+      labelsIO = labelsIO.concat(['Lob Logical Reads', 'Lob Phyiscal Reads', 'Lob Read-ahead Reads']);
     }
 
     let query2Label = 'No Query 2';
@@ -76,11 +82,19 @@ export class ManagerComponent implements OnInit {
           data.query1TotalIO.logicalReads,
           data.query1TotalIO.physicalReads,
           data.query1TotalIO.readAheadReads,
-          data.query1TotalIO.lobLogicalReads,
-          data.query1TotalIO.lobPhysicalReads,
-          data.query1TotalIO.lobReadAheadReads
         ], 'Query 1'
       );
+
+      if (this._addLobToCharts) {
+        radarData.appendData(
+          [
+            data.query1TotalIO.lobLogicalReads,
+            data.query1TotalIO.lobPhysicalReads,
+            data.query1TotalIO.lobReadAheadReads
+          ]
+        );
+      }
+
       const radarChartModel = new RadarChartModel(radarData, labelsIO);
       this.totalIO.push(
         radarChartModel
@@ -110,11 +124,20 @@ export class ManagerComponent implements OnInit {
           data.query2TotalIO.logicalReads,
           data.query2TotalIO.physicalReads,
           data.query2TotalIO.readAheadReads,
-          data.query2TotalIO.lobLogicalReads,
-          data.query2TotalIO.lobPhysicalReads,
-          data.query2TotalIO.lobReadAheadReads
         ], 'Query 2'
       );
+
+      if (this._addLobToCharts) {
+        radarData.appendData(
+          [
+            data.query2TotalIO.lobLogicalReads,
+            data.query2TotalIO.lobPhysicalReads,
+            data.query2TotalIO.lobReadAheadReads
+          ]
+        );
+      }
+
+
       const radarChartModel = new RadarChartModel(radarData, labelsIO);
       this.totalIO.push(
         radarChartModel
