@@ -34,6 +34,7 @@ export class ManagerComponent implements OnInit {
   private tableTimeData: TableData;
   private totalTime: BarChartModel[] = new Array<BarChartModel>();
 
+  private _tableDetailedData: TableData[];
 
   constructor(private dataService: DataService) { }
 
@@ -134,6 +135,149 @@ export class ManagerComponent implements OnInit {
 
     this.populateTotalIOTableData(data.query1TotalIO, totalIO2, query2Label);
     this.populateTotalTimeTableData(data.query1TotalTime, totalTime2, query2Label);
+    this.populateDetailedTableData(this.parsedData);
+  }
+  // Populates indiviudal tables data, needs urgent refactoring.
+  private populateDetailedTableData(queries: Array<TableQueryResult[]>) {
+
+    const tableData = new Array<TableData>();
+
+    // ensure if we have 2 queries that the data is indeed comparable
+    if (queries.length === 2) {
+      if (queries[0].length !== queries[1].length) {
+        return;
+      }
+    }
+
+    let query2Label = 'No Query 2';
+
+    if (queries.length === 1) {
+      const header = new TableHeader('', 'Query 1', query2Label, 'Best');
+      queries[0].forEach(table => {
+
+        const tableRowData: TableRowData[] = new Array<TableRowData>();
+        // IO Data
+        let totalScan = 0, totalLogicalReads = 0, totalPhysicalReads = 0, totalReadAheadReads = 0;
+        let tableName = '';
+
+        // Time Data
+        let totalCpuTime = 0, totalElapsedTime = 0;
+
+        // If table join will have multiple results
+        table.parsedStatisticsIOData.forEach(element => {
+          tableName += tableName.length === 0 ? element.tableName : ' x ' + element.tableName;
+          totalScan += element.scanCount;
+          totalLogicalReads += element.logicalReads;
+          totalPhysicalReads += element.physicalReads;
+          totalReadAheadReads += element.readAheadReads;
+        });
+
+        table.parsedStatisticsTimeData.forEach(element => {
+          totalCpuTime += element.CPUTime;
+          totalElapsedTime += element.elapsedTime;
+        });
+
+        tableRowData.push(new TableRowData('Scan Count', totalScan, -1));
+        tableRowData.push(new TableRowData('Logical Reads', totalLogicalReads, -1));
+        tableRowData.push(new TableRowData('Physical Reads', totalPhysicalReads, -1));
+        tableRowData.push(new TableRowData('Read-ahead Reads', totalReadAheadReads, -1));
+        tableRowData.push(new TableRowData('Total CPU Time', totalCpuTime, -1));
+        tableRowData.push(new TableRowData('Total Elapsed Time', totalElapsedTime, -1));
+
+
+        tableData.push(new TableData(tableName, header, tableRowData, 'panel panel-default'));
+      });
+    }
+
+    if (queries.length === 2) {
+      query2Label = 'Query 2';
+      const header = new TableHeader('', 'Query 1', query2Label, 'Best');
+
+      const tableRowHolder = {};
+      queries[0].forEach(table => {
+
+        const tableRowData: TableRowData[] = new Array<TableRowData>();
+        // IO Data
+        let totalScan = 0, totalLogicalReads = 0, totalPhysicalReads = 0, totalReadAheadReads = 0;
+        let tableName = '';
+
+        // Time Data
+        let totalCpuTime = 0, totalElapsedTime = 0;
+
+        // If table join will have multiple results
+        table.parsedStatisticsIOData.forEach(element => {
+          tableName += tableName.length === 0 ? element.tableName : ' x ' + element.tableName;
+          totalScan += element.scanCount;
+          totalLogicalReads += element.logicalReads;
+          totalPhysicalReads += element.physicalReads;
+          totalReadAheadReads += element.readAheadReads;
+        });
+
+        table.parsedStatisticsTimeData.forEach(element => {
+          totalCpuTime += element.CPUTime;
+          totalElapsedTime += element.elapsedTime;
+        });
+
+        tableRowHolder[tableName] = {
+          'Scan Count': totalScan,
+          'Logical Reads': totalLogicalReads,
+          'Physical Reads': totalPhysicalReads,
+          'Read-ahead Reads': totalReadAheadReads,
+          'Total CPU Time': totalCpuTime,
+          'Total Elapsed Time': totalElapsedTime
+        };
+      });
+      queries[1].forEach(table => {
+        const tableRowData: TableRowData[] = new Array<TableRowData>();
+        // IO Data
+        let totalScan = 0, totalLogicalReads = 0, totalPhysicalReads = 0, totalReadAheadReads = 0;
+        let tableName = '';
+        // Time Data
+        let totalCpuTime = 0, totalElapsedTime = 0;
+
+        // If table join will have multiple results
+        table.parsedStatisticsIOData.forEach(element => {
+          tableName += tableName.length === 0 ? element.tableName : ' x ' + element.tableName;
+          totalScan += element.scanCount;
+          totalLogicalReads += element.logicalReads;
+          totalPhysicalReads += element.physicalReads;
+          totalReadAheadReads += element.readAheadReads;
+        });
+
+        table.parsedStatisticsTimeData.forEach(element => {
+          totalCpuTime += element.CPUTime;
+          totalElapsedTime += element.elapsedTime;
+        });
+
+        // tableRowHolder[tableName]['Scan Count'].query2 = totalScan;
+        // tableRowHolder[tableName]['Logical Reads'].query2 = totalLogicalReads;
+        // tableRowHolder[tableName]['Physical Reads'].query2 = totalPhysicalReads;
+        // tableRowHolder[tableName]['Scan Count'].query2 = totalReadAheadReads;
+        // tableRowHolder[tableName]['Total CPU Time'].query2 = totalCpuTime;
+        // tableRowHolder[tableName]['Total Elapsed Time'].query2 = totalElapsedTime;
+
+        tableRowData.push(new TableRowData('Scan Count', tableRowHolder[tableName]['Scan Count'], totalScan));
+        tableRowData.push(new TableRowData('Logical Reads', tableRowHolder[tableName]['Logical Reads'], totalLogicalReads));
+        tableRowData.push(new TableRowData('Physical Reads', tableRowHolder[tableName]['Physical Reads'], totalPhysicalReads));
+        tableRowData.push(new TableRowData('Read-ahead Reads', tableRowHolder[tableName]['Read-ahead Reads'], totalReadAheadReads));
+        tableRowData.push(new TableRowData('Total CPU Time', tableRowHolder[tableName]['Total CPU Time'], totalCpuTime));
+        tableRowData.push(new TableRowData('Total Elapsed Time', tableRowHolder[tableName]['Total Elapsed Time'], totalElapsedTime));
+
+        // // now we can start pushing the results onto tableData
+        // tableRowData.push(tableRowHolder[tableName]['Scan Count']);
+        // tableRowData.push(tableRowHolder[tableName]['Logical Reads']);
+        // tableRowData.push(tableRowHolder[tableName]['Physical Reads']);
+        // tableRowData.push(tableRowHolder[tableName]['Scan Count']);
+        // tableRowData.push(tableRowHolder[tableName]['Total CPU Time']);
+        // tableRowData.push(tableRowHolder[tableName]['Total Elapsed Time']);
+
+
+        tableData.push(new TableData(tableName, header, tableRowData, 'panel panel-default'));
+      });
+    }
+
+    this._tableDetailedData = tableData;
+
   }
 
   private populateTotalTimeTableData(totalTime1: TotalTimeData, totalTime2: TotalTimeData, query2Label: string) {
