@@ -26,15 +26,16 @@ export class ManagerComponent implements OnInit {
   _addLobToCharts = false;
   toChildFromInput = InputSource.From;
   toChildToInput = InputSource.To;
-  private hasData = false;
+  hasData = false;
   parsedData: Array<TableQueryResult[]>;
+  _tableDetailedData: TableData[];
+
   private totalIO: RadarChartModel[] = new Array<RadarChartModel>();
   private tableIOData: TableData;
 
   private tableTimeData: TableData;
   private totalTime: BarChartModel[] = new Array<BarChartModel>();
 
-  private _tableDetailedData: TableData[];
 
 
   constructor(private dataService: DataService) { }
