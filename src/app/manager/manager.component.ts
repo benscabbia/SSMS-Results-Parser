@@ -204,7 +204,6 @@ export class ManagerComponent implements OnInit {
         // Time Data
         let totalCpuTime = 0, totalElapsedTime = 0;
 
-        // If table join will have multiple results
         table.parsedStatisticsIOData.forEach(element => {
           tableName += tableName.length === 0 ? element.tableName : ' x ' + element.tableName;
           totalScan += element.scanCount;
@@ -235,7 +234,6 @@ export class ManagerComponent implements OnInit {
         // Time Data
         let totalCpuTime = 0, totalElapsedTime = 0;
 
-        // If table join will have multiple results
         table.parsedStatisticsIOData.forEach(element => {
           tableName += tableName.length === 0 ? element.tableName : ' x ' + element.tableName;
           totalScan += element.scanCount;
@@ -249,28 +247,12 @@ export class ManagerComponent implements OnInit {
           totalElapsedTime += element.elapsedTime;
         });
 
-        // tableRowHolder[tableName]['Scan Count'].query2 = totalScan;
-        // tableRowHolder[tableName]['Logical Reads'].query2 = totalLogicalReads;
-        // tableRowHolder[tableName]['Physical Reads'].query2 = totalPhysicalReads;
-        // tableRowHolder[tableName]['Scan Count'].query2 = totalReadAheadReads;
-        // tableRowHolder[tableName]['Total CPU Time'].query2 = totalCpuTime;
-        // tableRowHolder[tableName]['Total Elapsed Time'].query2 = totalElapsedTime;
-
         tableRowData.push(new TableRowData('Scan Count', tableRowHolder[tableName]['Scan Count'], totalScan));
         tableRowData.push(new TableRowData('Logical Reads', tableRowHolder[tableName]['Logical Reads'], totalLogicalReads));
         tableRowData.push(new TableRowData('Physical Reads', tableRowHolder[tableName]['Physical Reads'], totalPhysicalReads));
         tableRowData.push(new TableRowData('Read-ahead Reads', tableRowHolder[tableName]['Read-ahead Reads'], totalReadAheadReads));
         tableRowData.push(new TableRowData('Total CPU Time', tableRowHolder[tableName]['Total CPU Time'], totalCpuTime));
         tableRowData.push(new TableRowData('Total Elapsed Time', tableRowHolder[tableName]['Total Elapsed Time'], totalElapsedTime));
-
-        // // now we can start pushing the results onto tableData
-        // tableRowData.push(tableRowHolder[tableName]['Scan Count']);
-        // tableRowData.push(tableRowHolder[tableName]['Logical Reads']);
-        // tableRowData.push(tableRowHolder[tableName]['Physical Reads']);
-        // tableRowData.push(tableRowHolder[tableName]['Scan Count']);
-        // tableRowData.push(tableRowHolder[tableName]['Total CPU Time']);
-        // tableRowData.push(tableRowHolder[tableName]['Total Elapsed Time']);
-
 
         tableData.push(new TableData(tableName, header, tableRowData, 'panel panel-default'));
       });
