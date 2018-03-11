@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { DataProcessor } from './DataProcessor';
 import { InputSource } from '../model/inputSource.enum';
-import { SSMSParser } from '../model/ssmsParser';
 import { TableQueryResult } from '../model/TableQueryResult';
 import { RadarChartModel } from './radar-chart/RadarChartModel';
 import { RadarData } from './radar-chart/radarData';
@@ -310,14 +309,14 @@ export class ManagerComponent implements OnInit {
   populateFrom() {
     // Populate from
     // this.dataService.dummyData
-    this.fromInput.populateDummyData();
+    this.fromInput.populateFromDummyData();
     console.log('pop from');
   }
 
   populateFromTo() {
     // Populate fromTo
-    this.fromInput.populateDummyData();
-    this.toInput.populateDummyData();
+    this.fromInput.populateFromDummyData();
+    this.toInput.populateToDummyData();
   }
 
   swapInput() {

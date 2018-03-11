@@ -4,7 +4,6 @@ import { DataProcessor } from './DataProcessor';
 import { TableQueryResult } from '../model/TableQueryResult';
 import { TotalTimeData } from '../model/TotalTimeData';
 import { TotalIOData } from '../model/TotalIOData';
-import { SSMSParser } from '../model/ssmsParser';
 import { InputParser } from './InputParser';
 
 describe('Data processor behaves as expected when receiving null data', () => {

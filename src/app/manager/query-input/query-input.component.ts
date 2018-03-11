@@ -22,8 +22,12 @@ export class QueryInputComponent implements OnInit {
     // console.log("pushing " + this.identifier + " id and text: " + this.textInput);
   }
 
-  populateDummyData() {
-    this.textInput = this.dataService.dummyData;
+  populateFromDummyData() {
+    this.textInput = this.dataService.dummyFromData;
+  }
+
+  populateToDummyData() {
+    this.textInput = this.dataService.dummyToData;
   }
 
   clearData() {
