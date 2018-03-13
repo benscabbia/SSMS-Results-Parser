@@ -46,7 +46,9 @@
   <hr/>
 
   <div class="row top-buffer" *ngIf="!hasData">
-    <p>Add your SSMS output and press run.</p>
+    <div class="col-md-12">
+      <p>Add your SSMS output and press run.</p>
+    </div>
   </div>
 
   <div class="row top-buffer" *ngIf="hasData">
@@ -83,8 +85,8 @@
       </app-bar-chart>
     </div>
   </div>
-
   <hr/>
+
   <div class="row" *ngIf="hasData">
     <div class="col-md-12">
       <h1>Table Brakedown</h1>

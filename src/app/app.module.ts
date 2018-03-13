@@ -1,7 +1,8 @@
+import {RouterModule} from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
+import {routes} from './app.routes';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
@@ -14,6 +15,8 @@ import { RadarChartComponent } from './manager/radar-chart/radar-chart.component
 import { BarChartComponent } from './manager/bar-chart/bar-chart.component';
 import { GenericTableComponent } from './manager/generic-table/generic-table.component';
 import { AboutComponent } from './about/about.component';
+import { ContentComponent } from './content.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -23,13 +26,15 @@ import { AboutComponent } from './about/about.component';
     ManagerComponent,
     RadarChartComponent,
     BarChartComponent,
-    GenericTableComponent
+    GenericTableComponent,
     AboutComponent,
+    ContentComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    ChartsModule
+    ChartsModule,
     RouterModule.forRoot(routes)
   ],
   providers: [AppConfigService, DataService],
