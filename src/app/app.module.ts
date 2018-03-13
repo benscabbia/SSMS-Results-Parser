@@ -13,6 +13,7 @@ import { ChartsModule } from 'ng2-charts';
 import { RadarChartComponent } from './manager/radar-chart/radar-chart.component';
 import { BarChartComponent } from './manager/bar-chart/bar-chart.component';
 import { GenericTableComponent } from './manager/generic-table/generic-table.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -23,11 +24,13 @@ import { GenericTableComponent } from './manager/generic-table/generic-table.com
     RadarChartComponent,
     BarChartComponent,
     GenericTableComponent
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ChartsModule
+    RouterModule.forRoot(routes)
   ],
   providers: [AppConfigService, DataService],
   bootstrap: [AppComponent]
