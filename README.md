@@ -28,10 +28,27 @@ Lob counts can be optionally included in chart
 
 ## Expected Input:
 
-SSMS Results Parser in its current state is fairly strict, therefore requing you to configure SSMS as instructed below. 
+SSMS Results Parser in its current state is fairly strict, therefore it requires you to configure SSMS as instructed below. 
 
 ### Configuring SSMS 
-TODO
+Firstly select to output your results to Text. This can be done in SSMS by: 
+**Tools > Options > Query Results**: 
+
+![SSMS Option to include output results to text](https://i.imgur.com/cZrBxqJ.png)
+
+Now you can optionally configure your results to automatically include Time and IO statistics data. In SSMS: 
+**Tools > Options > Query Execution > SQL Server > Advanced**. 
+
+![SSMS Option to default Time and IO stats](https://i.imgur.com/1nHuyGd.png)
+
+Alternatively, you can manually specify the Time and IO headers by including the snippet below at the beginning of your SQL query: 
+
+```
+SET STATISTICS IO ON
+SET STATISTICS TIME ON
+```
+
+That's it! 
 
 ## Future Features (welcome to contribute)
 * Improve robustness for inputs
