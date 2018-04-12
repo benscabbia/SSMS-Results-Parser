@@ -12,25 +12,30 @@
       </p>
 
       <h2>Inputs</h2>
-      <p>The parser in its current state is strict, and therefore requires the input to follow a specific format.</p>
-      <p>To configure it, please follow the steps below: </p>
-      <ul>
-        <li>TODO</li>
-        <li>TODO</li>
-        <li>TODO</li>
-        <li>TODO</li>
-        <li>TODO</li>        
-      </ul>
+      <p>The parser in its current state is strict, and therefore requires the input to follow a specific format. More information <a href="https://github.com/gudthing/SSMS-Results-Parser" target="_blank">here</a></p>      
+      <h2>Enable Results to Text</h2>
+      
+      <p>In SSMS, navigate to: <b>Tools > Options > Query Results</b>. Select <b>Results to Text</b></p>
+      <img src="https://i.imgur.com/cZrBxqJ.png" />
+    
+        
+      <p>We now need to enable IO and Time data in results. We can enable this information in two ways:</p>
+      <p>In SSMS, navigate to: <b>Tools > Options > Query Execution > SQL Server > Advanced</b>. </p>
+      <p>Enable <b>SET STATISTICS TIME</b> and <b>SET STATISTICS IO</b></p>
+      <img src="https://i.imgur.com/1nHuyGd.png" />
+
+      <p>Alternatively at the top of your SQL Script you can append: </p>
+      <p> SET STATISTICS IO ON <br> SET STATISTICS Time ON</p>
+    
+
 
 
 
       <p>This parser was built by
         <a href="https://www.benjaminscabbia.co.uk/" target="_blank">Benjamin Scabbia</a>
         with Angular 2+, the source code is available
-        <a href="https://github.com/gudthing/SSMS-Results-Parser" target="_blank">here</a>. </p>
-
-
+        <a href="https://github.com/gudthing/SSMS-Results-Parser" target="_blank">here</a>. 
+      </p>
     </div>
-
   </div>
 </div>
